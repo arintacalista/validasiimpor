@@ -1,3 +1,19 @@
+SELECT
+    idhs14, SUM(CIFKG) AS CIFKG, WAKTU FROM `hs14` `t`
+WHERE
+    WAKTU >= '201501'
+    AND WAKTU <= '201512'
+    AND NEG_ASAL = 'JP'
+GROUP BY WAKTU
+
+SELECT
+    idhs14, SUM(CIFKG) AS CIFKG, WAKTU FROM `hs14` `t`
+WHERE
+    WAKTU >= '201501'
+    AND WAKTU <= '201512'
+    AND NEG_ASAL = 'HK'
+GROUP BY WAKTU
+
 Done :
 - Line chart in home.
 

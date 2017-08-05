@@ -29,7 +29,6 @@ class ValidasiController extends Controller
 
         if (isset($_POST['ValidasiForm'])) {
             $model->attributes = $_POST['ValidasiForm'];
-            dump($model);
         }
 
         $this->render('validasi', [
