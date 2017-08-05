@@ -8,7 +8,7 @@ return array(
 	'connectionString' => 'mysql:host=localhost;dbname=validasiImpor',
 	'emulatePrepare' => true,
 	'username' => 'root',
-	'password' => 'root',
+	'password' => '',
 	'charset' => 'utf8',
-
+	
 );
