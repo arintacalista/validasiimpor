@@ -26,7 +26,8 @@ $this->pageTitle=Yii::app()->name;
 <?php
 $hs14 = Hs14::model()->find([
     'select' => 'SUM(CIFKG) AS TOTAL, WAKTU',
-    'condition' => 'WAKTU >= :waktu_dari AND WAKTU <= :waktu_sampai GROUP BY WAKTU',
+    'condition' => 'WAKTU >= :waktu_dari AND WAKTU <= :waktu_sampai',
+    'group' => 'WAKTU',
     'params' => [':waktu_dari' => '201501', ':waktu_sampai' => '201512']
 ]);
 dump($hs14);
