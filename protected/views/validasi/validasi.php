@@ -64,13 +64,13 @@ $this->pageTitle=Yii::app()->name;
         <tr>
             <td style="width: 130px;"><?php echo $form->labelEx($model2, 'neg_Asal'); ?></td>
             <td>
-                <?php
-                echo $form->dropDownList($model2, 'neg_Asal', CHtml::listData(asalnegara::model()->findAll(), 'kodeNeg', 'neg_Asal'), array(
-                    'prompt' => '---Pilih Negara Asal---', 'style' => 'width: 400px;', 'required' => TRUE,
-                ));
-                ?>
                 <?= Chosen::activeMultiSelect($model2, 'neg_Asal', CHtml::listData(asalnegara::model()->findAll(), 'kodeNeg', 'neg_Asal'), [
-                    
+                    'data-placeholder' => '---Pilih Negara Asal---',
+                    'options' => [
+                        'displaySelectedOptions' => true,
+                        'maxSelectedOptions' => 5,
+                    ],
+                    'style' => 'width: 400px',
                 ]); ?>
             </td>
         </tr>
