@@ -1,8 +1,7 @@
 <?php
 
-class ValidasiController extends Controller {
-
-
+class ValidasiController extends Controller
+{
     public function accessRules()
     {
         return array(
@@ -24,39 +23,34 @@ class ValidasiController extends Controller {
         );
     }
 
-
     public function actionValidasi()
     {
         // if it is ajax validation request
-        $model=new ValidasiForm;
-        $model2=new ValidasiForm;
+        $model = new ValidasiForm;
         $neg_Asal = 0;
         $nama_prov=0;
         $namaPelbong = 0;
         $jenisKom=0;
         $HS2 = 0;
 
-        if(isset($_POST['ajax']) && $_POST['ajax']==='client-account-create-form')
-        {
-            echo CActiveForm::validate($model2);
-            Yii::app()->end();
-        }
-
         if (isset($_POST['ValidasiForm'])) {
+            dump($_POST);
             $model2->attributes = $_POST['ValidasiForm'];
-            $neg_asal = $_POST['ValidasiForm']['neg_asal'];
+            $neg_Asal = $_POST['ValidasiForm']['neg_Asal'];
             $nama_prov = $_POST['ValidasiForm']['nama_prov'];
             $pel_bong = $_POST['ValidasiForm']['namaPelbong'];
             $jenis = $_POST['ValidasiForm']['jenisKom'];
             $HS = $_POST['ValidasiForm']['HS2'];
         }
-        $this->render('validasi', array(
-            'model' => $model, 'model2' => $model2, 'neg_Asal' => $neg_Asal, 'nama_prov' => $nama_prov, 'namaPelbong' => $namaPelbong, 'jenisKom' => $jenisKom,'HS2' => $HS2));
-      
 
-       
-       
-        
+        $this->render('validasi', array(
+            'model' => $model,
+            // 'neg_Asal' => $neg_Asal,
+            // 'nama_prov' => $nama_prov,
+            // 'namaPelbong' => $namaPelbong,
+            // 'jenisKom' => $jenisKom,
+            // 'HS2' => $HS2
+        ));
     }
 
     protected function performAjaxValidation($model)
@@ -81,7 +75,11 @@ class ValidasiController extends Controller {
     public function actionSelectPelbong()
     {
         $nama_prov = $_POST['nama_prov'];
-        $list = Pelbongkar::model()->findAll('id_prov = :id_prov', array(':id_prov' => $nama_prov));
+        $list = Pelbongkar::model()->findAll([
+            'condition' => 'id_prov = :id_prov',
+            'params' => [':id_prov' => $nama_prov],
+            'order' => 'namaPelbong',
+        ]);
         $list = CHtml::listData($list, 'idPel', 'namaPelbong');
 
         echo CHtml::tag('option', array('value' => ''), '---Pilih Pelabuhan Bongkar---', true);
@@ -104,5 +102,3 @@ class ValidasiController extends Controller {
         }
     }
 }
-
- 

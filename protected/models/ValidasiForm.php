@@ -15,8 +15,7 @@ class ValidasiForm extends CFormModel
 	public $jenisKom;
 	public $HS2;
 	public $nourut;
-
-
+    
 	/**
 	 * Declares the validation rules.
 	 * The rules state that username and password are required,
@@ -26,7 +25,7 @@ class ValidasiForm extends CFormModel
 	{
 		return array(
 			// semua attriubute required
-			array('neg_Asal, nama_prov, namaPelbong, jenisKom, HS2', 'required'),
+			array('dari_tanggal, sampai_tanggal, neg_Asal, nama_prov, namaPelbong, jenisKom, HS2', 'required'),
 		);
 	}
 
@@ -84,5 +83,5 @@ class ValidasiForm extends CFormModel
  {
       return CHtml::listData(Type::model()->findAll(),'id','name');
  }
- 
+
 }

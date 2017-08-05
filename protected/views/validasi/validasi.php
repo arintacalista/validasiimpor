@@ -1,148 +1,135 @@
 <head>
 
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<!-- <script type = "text/javascript">
-      jQuery(document).ready(function()){
-            jQuery('#kodeNeg').change(function(){
-              var kodeNeg = jQuery('#kodeNeg').val();
-              getProvinsi (kodeNeg,)
-            })
-        } </script> -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <!-- <script type = "text/javascript">
+    jQuery(document).ready(function()){
+    jQuery('#kodeNeg').change(function(){
+    var kodeNeg = jQuery('#kodeNeg').val();
+    getProvinsi (kodeNeg,)
+})
+} </script> -->
 </head>
-<?php
-/* @var $this SiteController */
 
-$this->pageTitle=Yii::app()->name;
-?>
-<div class="form">
-<?php $form=$this->beginWidget('CActiveForm', array(
-  'id'=>'validasi-form',
-  'enableClientValidation'=>true,
-  'clientOptions'=>array(
-    'validateOnSubmit'=>true,
-  ),
+<?php $this->pageTitle = Yii::app()->name; ?>
+
+<?php $form = $this->beginWidget('CActiveForm', array(
+    'clientOptions' => array(
+        'validateOnSubmit' => true,
+    ),
+    'enableClientValidation' => true,
 )); ?>
- </div>
 
+<h2>Silahkan memilih rincian data yang ingin ditampilkan</h2>
 
-
- <h2 style="margin-left: 18px;">Silahkan memilih rincian data yang ingin ditampilkan</h2>
-
-
-    <table style="margin-left: 20px;">
-    <tr><td style="width: 130px;"><?php echo $form->labelEx($model,'Dari tanggal'); ?>
-        <?php //echo $form->textField($model,'birthday');
-         $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-            'name'=>'tgl[dari_tanggal]',
-            'value'=>$model->dari_tanggal,
-            'options'=>array(
-                'showAnim'=>'fold',
-                'dateFormat'=>'yy-mm-dd',
-                 'changeMonth'=> 'true',
-                'changeYear'=> 'true',
-            ),
-        ));
-         ?>
-        <?php echo $form->error($model,'Dari tanggal'); ?>
-    </div></tr>
+<table>
     <tr>
-          <td style="width: 130px;"> <?php echo $form->labelEx($model,'Sampai tanggal'); ?>
-        <?php //echo $form->textField($model,'birthday');
-         $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-            'name'=>'tgl[sampai_tang            gal]',
-            'value'=>$model->sampai_tanggal,
-            'options'=>array(
-                'showAnim'=>'fold',
-                'dateFormat'=>'yy-mm-dd',
-                 'changeMonth'=> 'true',
-                'changeYear'=> 'true',
-            ),
-        ));
-         ?></tr>
-        <?php echo $form->error($model,'Sampai tanggal'); ?>
-        <tr>
-            <td style="width: 130px;"><?php echo $form->labelEx($model2, 'neg_Asal'); ?></td>
-            <td>
-                <?= Chosen::activeMultiSelect($model2, 'neg_Asal', CHtml::listData(asalnegara::model()->findAll(), 'kodeNeg', 'neg_Asal'), [
-                    'data-placeholder' => '---Pilih Negara Asal---',
-                    'options' => [
-                        'displaySelectedOptions' => true,
-                        'maxSelectedOptions' => 5,
-                    ],
-                    'style' => 'width: 400px',
-                ]); ?>
-            </td>
-        </tr>
+        <td width="10%"><?= $form->labelEx($model, 'dari_tanggal'); ?></td>
+        <td>
+            <?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                'name' => 'ValidasiForm[dari_tanggal]',
+                'value' => $model->dari_tanggal,
+                'options' => array(
+                    'changeMonth' => 'true',
+                    'changeYear' => 'true',
+                    'dateFormat' => 'yymm',
+                ),
+            )); ?>
+        </td>
+        <td><?= $form->error($model, 'dari_tanggal'); ?></td>
+    </tr>
     <tr>
-            <td style="width: 130px;"><?php echo $form->labelEx($model2, 'nama_prov'); ?></td>
-            <td>
-                <?php echo $form->dropDownList($model2, 'nama_prov', CHtml::listData(masterprov::model()->findAll(), 'id_prov', 'nama_prov'),
-                    array(
-                        'ajax' => array(
-                            'data' => ['nama_prov' => 'js:this.value'],
-                            'type' => 'POST',
-                            'url' => CController::createUrl('Validasi/SelectPelbong'),
-                            'update' => '#'.CHtml::activeId($model2, 'namaPelbong'),
-                        ),
-                        'prompt' => '---Pilih Provinsi---',
-                        'required' => TRUE,
-                        'style' => 'width: 400px;',
-                    )
-                ); ?>
-            </td>
-        </tr>
+        <td><?= $form->labelEx($model, 'sampai_tanggal'); ?></td>
+        <td>
+            <?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                'name' => 'ValidasiForm[sampai_tanggal]',
+                'value' => $model->sampai_tanggal,
+                'options' => array(
+                    'changeMonth' => 'true',
+                    'changeYear' => 'true',
+                    'dateFormat' => 'yymm',
+                ),
+            )); ?>
+        </td>
+        <td><?= $form->error($model, 'sampai_tanggal'); ?></td>
+    </tr>
+    <tr>
+        <td><?= $form->labelEx($model, 'neg_Asal'); ?></td>
+        <td>
+            <?= Chosen::activeMultiSelect($model, 'neg_Asal', CHtml::listData(asalnegara::model()->findAll(), 'kodeNeg', 'neg_Asal'), [
+                'data-placeholder' => '---Pilih Negara Asal---',
+                'options' => [
+                    'displaySelectedOptions' => true,
+                    'maxSelectedOptions' => 5,
+                ],
+                'style' => 'width: 400px',
+            ]); ?>
+        </td>
+        <td><?= $form->error($model, 'neg_Asal'); ?></td>
+    </tr>
+    <tr>
+        <td><?= $form->labelEx($model, 'nama_prov'); ?></td>
+        <td>
+            <?= $form->dropDownList($model, 'nama_prov', CHtml::listData(masterprov::model()->findAll(), 'id_prov', 'nama_prov'), array(
+                'ajax' => array(
+                    'data' => ['nama_prov' => 'js:this.value'],
+                    'type' => 'POST',
+                    'url' => CController::createUrl('Validasi/SelectPelbong'),
+                    'update' => '#'.CHtml::activeId($model, 'namaPelbong'),
+                ),
+                'prompt' => '---Pilih Provinsi---',
+                'style' => 'width: 400px;',
+            )); ?>
+        </td>
+        <td><?= $form->error($model, 'nama_prov'); ?></td>
+    </tr>
+    <tr>
+        <td><?= $form->labelEx($model, 'namaPelbong'); ?></td>
+        <td>
+            <?= $form->dropDownList($model, 'namaPelbong', CHtml::listData(pelbongkar::model()->findAll(['order' => 'namaPelbong']), 'idPel', 'namaPelbong'), array(
+                // 'ajax' => array(
+                //     'data' => ['namaPelbong' => 'js:this.value'],
+                //     'type' => 'POST',
+                //     'url' => CController::createUrl('Validasi/SelectKomoditas'),
+                //     'update' => '#'.CHtml::activeId($model, 'jenisKom'),
+                // ),
 
-         <tr>
-            <td style="width: 130px;"><?php echo $form->labelEx($model2, 'namaPelbong'); ?></td>
-            <td>
-                <?php
-                echo $form->dropDownList($model2, 'namaPelbong', CHtml::listData(pelbongkar::model()->findAll(), 'idPel', 'namaPelbong'),
-                    array(
-                        // 'ajax' => array(
-                        //     'data' => ['namaPelbong' => 'js:this.value'],
-                        //     'type' => 'POST',
-                        //     'url' => CController::createUrl('Validasi/SelectKomoditas'),
-                        //     'update' => '#'.CHtml::activeId($model2, 'jenisKom'),
-                        // ),
-                        'prompt' => '---Pilih Pelabuhan Bongkar---',
-                        'required' => TRUE,
-                        'style' => 'width: 400px;',
-                    )
-                );
-                ?>
-            </td>
-        </tr>
-       <tr>
-            <td style="width: 130px;"><?php echo $form->labelEx($model2, 'jenisKom'); ?></td>
-            <td>
-                <?php
-                echo $form->dropDownList($model2, 'jenisKom', CHtml::listData(jeniskomoditas::model()->findAll(), 'idKomoditas', 'jenisKom'), array(
-                    'prompt' => '---Pilih Jenis Komoditas---', 'style' => 'width: 400px;', 'required' => TRUE,
-                ));
-                ?>
-            </td>
-        </tr>
-     <tr>
-            <td style="width: 130px;"><?php echo $form->labelEx($model2, 'HS2'); ?></td>
-            <td>
-                <?php
-                echo $form->dropDownList($model2, 'HS2', CHtml::listData(masterkodeHS::model()->findAll(), 'idHS', 'HS2'), array(
-                    'prompt' => '---Pilih HS2---', 'style' => 'width: 400px;', 'required' => TRUE,
-                ));
-                ?>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <?php echo CHtml::submitButton('Lihat', array('class' => 'button blue')); ?>
-            </td>
-            <td>
-            </td>
-        </tr>
-    </table>
- <?php $this->endWidget(); ?>
-  <?php
+                'prompt' => '---Pilih Pelabuhan Bongkar---',
+                'style' => 'width: 400px;',
+            )); ?>
+        </td>
+        <td><?= $form->error($model, 'namaPelbong'); ?></td>
+    </tr>
+    <tr>
+        <td><?= $form->labelEx($model, 'jenisKom'); ?></td>
+        <td>
+            <?= $form->dropDownList($model, 'jenisKom', CHtml::listData(jeniskomoditas::model()->findAll(), 'idKomoditas', 'jenisKom'), array(
+                'prompt' => '---Pilih Jenis Komoditas---',
+                'style' => 'width: 400px;',
+            )); ?>
+        </td>
+        <td><?= $form->error($model, 'jenisKom'); ?></td>
+    </tr>
+    <tr>
+        <td><?= $form->labelEx($model, 'HS2'); ?></td>
+        <td>
+            <?= $form->dropDownList($model, 'HS2', CHtml::listData(masterkodeHS::model()->findAll(), 'idHS', 'HS2'), array(
+                'prompt' => '---Pilih HS2---',
+                'style' => 'width: 400px;',
+            )); ?>
+        </td>
+        <td><?= $form->error($model, 'HS2'); ?></td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            <?php echo CHtml::submitButton('Lihat', array('class' => 'button blue')); ?>
+        </td>
+    </tr>
+</table>
+
+<?php $this->endWidget(); ?>
+
+<?php
 
 $this->Widget('ext.highchart.highcharts.HighchartsWidget', array(
 
