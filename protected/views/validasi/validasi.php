@@ -87,25 +87,16 @@
         </td>
         <td><?= $form->error($model, 'namaPelbong'); ?></td>
     </tr>
+   
     <tr>
-        <td><?= $form->labelEx($model, 'jenisKom'); ?></td>
+        <td><?= $form->labelEx($model, 'kodeHS'); ?></td>
         <td>
-            <?= $form->dropDownList($model, 'jenisKom', CHtml::listData(jeniskomoditas::model()->findAll(), 'idKomoditas', 'jenisKom'), array(
-                'prompt' => '---Pilih Jenis Komoditas---',
+            <?= $form->dropDownList($model, 'kodeHS', CHtml::listData(masterHS::model()->findAll(), 'idHS', 'kodeHS'), array(
+                'prompt' => '---Pilih jenis HS---',
                 'style' => 'width: 400px;',
             )); ?>
         </td>
-        <td><?= $form->error($model, 'jenisKom'); ?></td>
-    </tr>
-    <tr>
-        <td><?= $form->labelEx($model, 'HS2'); ?></td>
-        <td>
-            <?= $form->dropDownList($model, 'HS2', CHtml::listData(masterkodeHS::model()->findAll(), 'idHS', 'HS2'), array(
-                'prompt' => '---Pilih HS2---',
-                'style' => 'width: 400px;',
-            )); ?>
-        </td>
-        <td><?= $form->error($model, 'HS2'); ?></td>
+        <td><?= $form->error($model, 'kodeHS'); ?></td>
     </tr>
     <tr>
         <td colspan="3">
@@ -120,7 +111,7 @@
 $asalnegaras = $model->neg_Asal;
 $series = [];
 
-foreach ($asalnegaras as $i => $kodeNeg) {
+foreach ((array) $asalnegaras as $i => $kodeNeg) {
     $asalnegara = asalnegara::model()->findByPk($kodeNeg);
     $series[$i]['name'] = $asalnegara->neg_Asal;
 
@@ -134,15 +125,26 @@ foreach ($asalnegaras as $i => $kodeNeg) {
         ],
         'group' => 'WAKTU',
     ]);
-    // dump($hs14);
+    
+    $data = CHtml::listData($hs14, 'idhs14' , 'WAKTU');
+    $categories = array_values($data);
+    $categories = array_map(
+        function ($value) {
+            $date = DateTime::createFromFormat('Ym', $value);
+            return $date->format('M Y');
+        },
+        $categories
+    );
 
     $data = [];
     foreach ($hs14 as $row) {
-        $data[] = [floatval($row->WAKTU), floatval($row->CIFKG)];
+        // $data[] = [floatval($row->WAKTU), floatval($row->CIFKG)];
+        $data[] = [floatval($row->CIFKG)];
     }
 
     $series[$i]['data'] = $data;
 }
+dump($series);
 ?>
 
 <?php $this->Widget('ext.highcharts.HighchartsWidget', array(
@@ -154,6 +156,7 @@ foreach ($asalnegaras as $i => $kodeNeg) {
         'title' => ['text' => 'Height Versus Weight of 507 Individuals by Gender'],
         'subtitle' => ['text' => 'Source => Heinz  2003'],
         'xAxis' => [
+            'categories' => $categories,
             'title' => [
                 'enabled' => true,
                 'text' => 'Waktu'

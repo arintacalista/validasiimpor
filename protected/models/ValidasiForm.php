@@ -13,7 +13,7 @@ class ValidasiForm extends CFormModel
 	public $nama_prov;
 	public $namaPelbong;
 	public $jenisKom;
-	public $HS2;
+	public $kodeHS;
 
 	/**
 	 * Declares the validation rules.
@@ -24,7 +24,7 @@ class ValidasiForm extends CFormModel
 	{
 		return array(
 			// semua attriubute required
-			array('dari_tanggal, sampai_tanggal, neg_Asal, nama_prov, namaPelbong, jenisKom, HS2', 'required'),
+			array('dari_tanggal, sampai_tanggal, neg_Asal, nama_prov, namaPelbong, jenisKom, kodeHS', 'required'),
 		);
 	}
 
@@ -38,7 +38,7 @@ class ValidasiForm extends CFormModel
 			'nama_prov'=>'Provinsi Tujuan',
 			'pel_bong'=>'Pelabuhan Bongkar',
 			'jenisKom'=>'Jenis komoditas',
-			'HS2'=>'Jenis komoditas HS',
+			'kodeHS'=>'Jenis komoditas HS',
 			''
 		);
 	}

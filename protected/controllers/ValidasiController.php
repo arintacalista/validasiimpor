@@ -1,5 +1,4 @@
 <?php
-
 class ValidasiController extends Controller
 {
     public function accessRules()
