@@ -2,6 +2,7 @@ Done :
 - Line chart in home.
 
 Undone :
+- Isian kolom 'dari tanggal' dan 'sampai tanggal'
 - Dependencies dropdown list in validasi
 - Select more than 1 choice (in negara asal, namaPelbong,jenis Komoditas, dan jenis komoditas HS) in validasi
 - Add scatter plot

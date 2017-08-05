@@ -69,21 +69,28 @@ $this->pageTitle=Yii::app()->name;
                     'prompt' => '---Pilih Negara Asal---', 'style' => 'width: 400px;', 'required' => TRUE,
                 ));
                 ?>
+                <?php
+                echo Chosen::activeMultiSelect($model2, 'neg_Asal', $CHtml::listData(asalnegara::model()->findAll(), 'kodeNeg', 'neg_Asal'), array(
+                   
+                ));
+                ?>
             </td>
         </tr>
     <tr>
             <td style="width: 130px;"><?php echo $form->labelEx($model2, 'nama_prov'); ?></td>
             <td>
-                <?php echo $form->dropDownList($model2,'nama_prov',CHtml::listData(masterprov::model()->findAll(), 'id_prov', 'nama_prov'),
-                array(
-                    'ajax'=>array(
-                        'type'=>'POST',
-                        'url'=>CController::createUrl('Validasi/SelectPelbong'),
-                        'update'=>'#'.CHtml::activeId($model2,'namaPelbong'),
-                        ), 'prompt'=>'---Pilih Provinsi---', 'style' => 'width: 400px;', 'required' => TRUE,
+                <?php echo $form->dropDownList($model2, 'nama_prov', CHtml::listData(masterprov::model()->findAll(), 'id_prov', 'nama_prov'),
+                    array(
+                        'ajax' => array(
+                            'data' => ['nama_prov' => 'js:this.value'],
+                            'type' => 'POST',
+                            'url' => CController::createUrl('Validasi/SelectPelbong'),
+                            'update' => '#'.CHtml::activeId($model2, 'namaPelbong'),
+                        ),
+                        'prompt' => '---Pilih Provinsi---',
+                        'required' => TRUE,
+                        'style' => 'width: 400px;',
                     )
-
-
                 ); ?>
             </td>
         </tr>
@@ -92,10 +99,19 @@ $this->pageTitle=Yii::app()->name;
             <td style="width: 130px;"><?php echo $form->labelEx($model2, 'namaPelbong'); ?></td>
             <td>
                 <?php
-                echo $form->dropDownList($model2, 'namaPelbong', CHtml::listData(pelbongkar::model()->findAll(), 'idPel', 'namaPelbong') , array(
-
-                    'prompt' => '---Pilih Pelabuhan Bongkar---', 'style' => 'width: 400px;', 'required' => TRUE,
-                ));
+                echo $form->dropDownList($model2, 'namaPelbong', CHtml::listData(pelbongkar::model()->findAll(), 'idPel', 'namaPelbong'),
+                    array(
+                        // 'ajax' => array(
+                        //     'data' => ['namaPelbong' => 'js:this.value'],
+                        //     'type' => 'POST',
+                        //     'url' => CController::createUrl('Validasi/SelectKomoditas'),
+                        //     'update' => '#'.CHtml::activeId($model2, 'jenisKom'),
+                        // ),
+                        'prompt' => '---Pilih Pelabuhan Bongkar---',
+                        'required' => TRUE,
+                        'style' => 'width: 400px;',
+                    )
+                );
                 ?>
             </td>
         </tr>

@@ -42,6 +42,7 @@ return array(
 		'allowAutoLogin'=>true,
 		),
 		'bootstrap'=>array('class'=>'ext.bootstrap.components.Bootstrap'),
+		'Chosen' => ['class' => 'ext.chosen.Chosen'],
 		// uncomment the following to enable URLs in path-format
 		/*
 		'urlManager'=>array(

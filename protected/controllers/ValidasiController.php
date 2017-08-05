@@ -25,9 +25,9 @@ class ValidasiController extends Controller {
     }
 
 
-   public function actionValidasi()
+    public function actionValidasi()
     {
-// if it is ajax validation request
+        // if it is ajax validation request
         $model=new ValidasiForm;
         $model2=new ValidasiForm;
         $neg_Asal = 0;
@@ -54,10 +54,7 @@ class ValidasiController extends Controller {
             'model' => $model, 'model2' => $model2, 'neg_Asal' => $neg_Asal, 'nama_prov' => $nama_prov, 'namaPelbong' => $namaPelbong, 'jenisKom' => $jenisKom,'HS2' => $HS2));
       
 
-       /* if(isset($_POST['ajax']) && $_POST['ajax']==='validasi')
-        {
-            echo CActiveForm::validate($model);*/
-            /*Yii::app()->end();*/
+       
        
         
     }
@@ -79,31 +76,33 @@ class ValidasiController extends Controller {
             else
                 $this->render('error ', $error);
         }
-        }
+    }
 
-    public function actionSelectPelbong(){
-        $nama_prov= $_POST['ValidasiForm']['nama_prov'];
-        //$id_prov = MasterProv::model()->findAll('nama_prov = :nama_prov',array(':nama_prov'=>$nama_prov));
-        $list = Pelbongkar::model()->findAll('id_prov = :id_prov',array(':id_prov'=>$nama_prov));
-        $list = CHtml::listData($list,'idPel','namaPelbong');
+    public function actionSelectPelbong()
+    {
+        $nama_prov = $_POST['nama_prov'];
+        $list = Pelbongkar::model()->findAll('id_prov = :id_prov', array(':id_prov' => $nama_prov));
+        $list = CHtml::listData($list, 'idPel', 'namaPelbong');
 
-        echo CHtml::tag('option', array('value'=>''), '---Pilih Pelabuhan Bongkar---', true);
+        echo CHtml::tag('option', array('value' => ''), '---Pilih Pelabuhan Bongkar---', true);
 
         foreach ($list as $key => $namaPelbong) {
-            echo CHtml::tag('option', array('value'=>$key),CHtml::encode($namaPelbong), true);
+            echo CHtml::tag('option', array('value' => $key), CHtml::encode($namaPelbong), true);
         }
     }
 
-}
-        
+    public function actionSelectKomoditas()
+    {
+        $$namaPelbong = $_POST['namaPelbong'];
+        $list = Jeniskomoditas::model()->findAll('id_prov = :id_prov', array(':id_prov' => $nama_prov));
+        $list = CHtml::listData($list, 'idPel', 'namaPelbong');
 
+        echo CHtml::tag('option', array('value' => ''), '---Pilih Pelabuhan Bongkar---', true);
 
-        /* public function  actionLihat()
-        $model=new LoginForm;
-        $this->redirect(array('site/scatter',));
+        foreach ($list as $key => $namaPelbong) {
+            echo CHtml::tag('option', array('value' => $key), CHtml::encode($namaPelbong), true);
         }
-        // display the login form
-        $this->render('scatter',array('model'=>$model));
-    }*/
+    }
+}
 
  
