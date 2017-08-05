@@ -11,7 +11,7 @@ return array(
 	'defaultController'=>'site/index',
 
 	// preloading 'log' component
-	'preload'=>array('log'),
+	'preload' => array('chosen', 'log'),
 
 	// autoloading model and component classes
 	'import'=>array(
@@ -36,13 +36,13 @@ return array(
 
 	// application components
 	'components'=>array(
-		'user'=>array(
+		'chosen' => ['class' => 'ext.chosen.Chosen'],
+        'user'=>array(
 			// enable cookie-based authentication
 		'class'=>'application.components.EWebUser',
 		'allowAutoLogin'=>true,
 		),
 		'bootstrap'=>array('class'=>'ext.bootstrap.components.Bootstrap'),
-		'Chosen' => ['class' => 'ext.chosen.Chosen'],
 		// uncomment the following to enable URLs in path-format
 		/*
 		'urlManager'=>array(

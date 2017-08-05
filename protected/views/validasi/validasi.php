@@ -25,10 +25,10 @@ $this->pageTitle=Yii::app()->name;
 )); ?>
  </div>
 
-       
-   
+
+
  <h2 style="margin-left: 18px;">Silahkan memilih rincian data yang ingin ditampilkan</h2>
-  
+
 
     <table style="margin-left: 20px;">
     <tr><td style="width: 130px;"><?php echo $form->labelEx($model,'Dari tanggal'); ?>
@@ -69,11 +69,9 @@ $this->pageTitle=Yii::app()->name;
                     'prompt' => '---Pilih Negara Asal---', 'style' => 'width: 400px;', 'required' => TRUE,
                 ));
                 ?>
-                <?php
-                echo Chosen::activeMultiSelect($model2, 'neg_Asal', $CHtml::listData(asalnegara::model()->findAll(), 'kodeNeg', 'neg_Asal'), array(
-                   
-                ));
-                ?>
+                <?= Chosen::activeMultiSelect($model2, 'neg_Asal', CHtml::listData(asalnegara::model()->findAll(), 'kodeNeg', 'neg_Asal'), [
+                    
+                ]); ?>
             </td>
         </tr>
     <tr>
@@ -178,7 +176,7 @@ $this->Widget('ext.highchart.highcharts.HighchartsWidget', array(
 
             plotBorderWidth: 0
 
-        },      
+        },
 
         'title': {
 
@@ -207,7 +205,7 @@ $this->Widget('ext.highchart.highcharts.HighchartsWidget', array(
 
          },
 
-         
+
 
         'xAxis': {
 
@@ -217,7 +215,7 @@ $this->Widget('ext.highchart.highcharts.HighchartsWidget', array(
 
         },
 
-         
+
 
         'yAxis': {
 
@@ -281,8 +279,7 @@ $this->Widget('ext.highchart.highcharts.HighchartsWidget', array(
  </div>
 
 
-               
 
-   
+
+
  </div>
-
