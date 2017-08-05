@@ -135,6 +135,7 @@ foreach ((array) $asalnegaras as $i => $kodeNeg) {
         },
         $categories
     );
+    dump($categories);
 
     $data = [];
     foreach ($hs14 as $row) {
