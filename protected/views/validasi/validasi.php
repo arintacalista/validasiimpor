@@ -87,11 +87,11 @@
         </td>
         <td><?= $form->error($model, 'namaPelbong'); ?></td>
     </tr>
-   
+
     <tr>
         <td><?= $form->labelEx($model, 'kodeHS'); ?></td>
         <td>
-            <?= $form->dropDownList($model, 'kodeHS', CHtml::listData(masterHS::model()->findAll(), 'idHS', 'kodeHS'), array(
+            <?= $form->dropDownList($model, 'kodeHS', CHtml::listData(Masterhs::model()->findAll(), 'idHS', 'kodeHS'), array(
                 'prompt' => '---Pilih jenis HS---',
                 'style' => 'width: 400px;',
             )); ?>
@@ -109,7 +109,18 @@
 
 <?php
 $asalnegaras = $model->neg_Asal;
-$series = [];
+$series = $categories = [];
+
+if ($model->dari_tanggal && $model->sampai_tanggal) {
+    $startDate = DateTime::createFromFormat('Ym', $model->dari_tanggal);
+    $endDate = DateTime::createFromFormat('Ym', $model->sampai_tanggal);
+    $endDate = $endDate->modify( '+1 month' );
+    $interval = DateInterval::createFromDateString('1 month');
+    $periods = new DatePeriod($startDate, $interval, $endDate);
+    foreach ($periods as $dt) {
+        $categories[] = $dt->format('M Y');
+    }
+}
 
 foreach ((array) $asalnegaras as $i => $kodeNeg) {
     $asalnegara = asalnegara::model()->findByPk($kodeNeg);
@@ -125,27 +136,14 @@ foreach ((array) $asalnegaras as $i => $kodeNeg) {
         ],
         'group' => 'WAKTU',
     ]);
-    
-    $data = CHtml::listData($hs14, 'idhs14' , 'WAKTU');
-    $categories = array_values($data);
-    $categories = array_map(
-        function ($value) {
-            $date = DateTime::createFromFormat('Ym', $value);
-            return $date->format('M Y');
-        },
-        $categories
-    );
-    dump($categories);
 
     $data = [];
     foreach ($hs14 as $row) {
-        // $data[] = [floatval($row->WAKTU), floatval($row->CIFKG)];
         $data[] = [floatval($row->CIFKG)];
     }
 
     $series[$i]['data'] = $data;
 }
-dump($series);
 ?>
 
 <?php $this->Widget('ext.highcharts.HighchartsWidget', array(
