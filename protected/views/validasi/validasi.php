@@ -114,7 +114,7 @@ $series = $categories = [];
 if ($model->dari_tanggal && $model->sampai_tanggal) {
     $startDate = DateTime::createFromFormat('Ym', $model->dari_tanggal);
     $endDate = DateTime::createFromFormat('Ym', $model->sampai_tanggal);
-    $endDate = $endDate->modify( '+1 month' );
+    $endDate = $endDate->modify('+1 month');
     $interval = DateInterval::createFromDateString('1 month');
     $periods = new DatePeriod($startDate, $interval, $endDate);
     foreach ($periods as $dt) {
