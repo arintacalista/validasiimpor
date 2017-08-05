@@ -17,7 +17,7 @@ $waktu_sampai = '201512';
 $hs14 = Hs14::model()->findAll([
     'select' => ['idhs14', 'SUM(CIFKG) AS CIFKG', 'WAKTU'],
     'condition' => 'WAKTU >= :waktu_dari AND WAKTU <= :waktu_sampai',
-    'params' => [':waktu_dari' => $waktu_dari, ':waktu_sampai' => $waktu_sampai]
+    'params' => [':waktu_dari' => $waktu_dari, ':waktu_sampai' => $waktu_sampai],
     'group' => 'WAKTU',
 ]);
 // dump($hs14);
