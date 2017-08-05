@@ -1,3 +1,5 @@
-assets/*
-protected/config/database.php
-protected/runtime/*
+/assets/*
+/protected/config/database.php
+/protected/runtime/*
+/vendor/*
+/composer.lock

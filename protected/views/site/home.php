@@ -23,14 +23,13 @@ $this->pageTitle=Yii::app()->name;
 <h1 class="center">Welcome to <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
 <br>
 <br>
-<?php $hs14 = Hs14::model()->find([
+<?php
+$hs14 = Hs14::model()->find([
     'select' => 'SUM(CIFKG) AS TOTAL, WAKTU',
     'condition' => 'WAKTU >= :waktu_dari AND WAKTU <= :waktu_sampai GROUP BY WAKTU',
     'params' => [':waktu_dari' => '201501', ':waktu_sampai' => '201512']
 ]);
-echo '<pre>';
-print_r($hs14);
-echo '</pre>';
+dump($hs14);
 ?>
 <?php $this->Widget('ext.highcharts.HighchartsWidget', array(
    'options' => array(
