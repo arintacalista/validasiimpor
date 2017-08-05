@@ -25,51 +25,16 @@ class ValidasiController extends Controller
 
     public function actionValidasi()
     {
-        // if it is ajax validation request
         $model = new ValidasiForm;
-        $neg_Asal = 0;
-        $nama_prov=0;
-        $namaPelbong = 0;
-        $jenisKom=0;
-        $HS2 = 0;
 
         if (isset($_POST['ValidasiForm'])) {
-            dump($_POST);
-            $model2->attributes = $_POST['ValidasiForm'];
-            $neg_Asal = $_POST['ValidasiForm']['neg_Asal'];
-            $nama_prov = $_POST['ValidasiForm']['nama_prov'];
-            $pel_bong = $_POST['ValidasiForm']['namaPelbong'];
-            $jenis = $_POST['ValidasiForm']['jenisKom'];
-            $HS = $_POST['ValidasiForm']['HS2'];
+            $model->attributes = $_POST['ValidasiForm'];
+            dump($model);
         }
 
-        $this->render('validasi', array(
+        $this->render('validasi', [
             'model' => $model,
-            // 'neg_Asal' => $neg_Asal,
-            // 'nama_prov' => $nama_prov,
-            // 'namaPelbong' => $namaPelbong,
-            // 'jenisKom' => $jenisKom,
-            // 'HS2' => $HS2
-        ));
-    }
-
-    protected function performAjaxValidation($model)
-    {
-        if(isset($_POST['ajax']) && $_POST['ajax']==='validasi-form')
-        {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
-    }
-
-    public function actionError() {
-        if ($error = Yii::app()->errorHandler->error) {
-            if (Yii::app()->request->isAjaxRequest)
-                echo $error['message
-            '];
-            else
-                $this->render('error ', $error);
-        }
+        ]);
     }
 
     public function actionSelectPelbong()

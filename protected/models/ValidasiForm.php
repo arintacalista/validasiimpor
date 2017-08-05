@@ -14,8 +14,7 @@ class ValidasiForm extends CFormModel
 	public $namaPelbong;
 	public $jenisKom;
 	public $HS2;
-	public $nourut;
-    
+
 	/**
 	 * Declares the validation rules.
 	 * The rules state that username and password are required,
@@ -29,8 +28,7 @@ class ValidasiForm extends CFormModel
 		);
 	}
 
-
-	/**
+    /**
 	 * Declares attribute labels.
 	 */
 	public function attributeLabels()
@@ -44,21 +42,8 @@ class ValidasiForm extends CFormModel
 			''
 		);
 	}
-	/**
-	 * Authenticates the password.
-	 * This is the 'authenticate' validator as declared in rules().
-	 */
-	public function authenticate($attribute,$params)
-	{
-		if(!$this->hasErrors())
-		{
-			$this->_identity=new UserIdentity($this->username,$this->password);
-			if(!$this->_identity->authenticate())
-				$this->addError('password','Incorrect username or password.');
-		}
-	}
 
-	/**
+    /**
 	 * Logs in the user using the given username and password in the model.
 	 * @return boolean whether login is successful
 	 */
@@ -78,10 +63,4 @@ class ValidasiForm extends CFormModel
 		else
 			return false;
 	}
-
-	public function getTypeOptions()
- {
-      return CHtml::listData(Type::model()->findAll(),'id','name');
- }
-
 }
