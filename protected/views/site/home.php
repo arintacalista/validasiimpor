@@ -10,16 +10,27 @@
 <h1 class="center">Welcome to <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
 <br />
 
-<?php $hs14 = Hs14::model()->findAll([
+<?php
+$waktu_dari = '201501';
+$waktu_sampai = '201512';
+
+$hs14 = Hs14::model()->findAll([
     'select' => ['idhs14', 'SUM(CIFKG) AS CIFKG', 'WAKTU'],
     'condition' => 'WAKTU >= :waktu_dari AND WAKTU <= :waktu_sampai',
     'group' => 'WAKTU',
-    'params' => [':waktu_dari' => '201501', ':waktu_sampai' => '201512']
+    'params' => [':waktu_dari' => $waktu_dari, ':waktu_sampai' => $waktu_sampai]
 ]);
 // dump($hs14);
 
 $data = CHtml::listData($hs14, 'idhs14' , 'WAKTU');
 $categories = array_values($data);
+$categories = array_map(
+    function ($value) {
+        $date = DateTime::createFromFormat('Ym', $value);
+        return $date->format('M Y');
+    },
+    $categories
+);
 // dump($categories);
 
 $data = CHtml::listData($hs14, 'idhs14' , 'CIFKG');
