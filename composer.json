@@ -1,5 +1,6 @@
 {
     "require": {
-        "symfony/var-dumper": "^3.3"
+        "symfony/var-dumper": "^3.3",
+        "kachkaev/php-r": "^1.0"
     }
 }
