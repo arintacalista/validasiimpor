@@ -116,8 +116,7 @@
 
 <?php
 $asalnegaras = $model->neg_Asal;
-/*$pelbong = $model-> $namaPelbong;*/
-$series = $categories = [];
+$series = $categories = $cifkg = [];
 
 if ($model->dari_tanggal && $model->sampai_tanggal) {
     $startDate = DateTime::createFromFormat('Ym', $model->dari_tanggal);
@@ -133,23 +132,26 @@ if ($model->dari_tanggal && $model->sampai_tanggal) {
 foreach ((array) $asalnegaras as $i => $kodeNeg) {
     $asalnegara = asalnegara::model()->findByPk($kodeNeg);
     $series[$i]['name'] = $asalnegara->neg_Asal;
- /*   $pelbong = pelbongkar::model()->findByPk($idPel);
-    $series[$i]['name'] = $
-*/
+    $pelbongkar = pelbongkar::model()->findByPk($model->namaPelbong);
+    $masterhs = masterhs::model()->findByPk($model->kodeHS);
+       
     $hs14 = Hs14::model()->findAll([
         'select' => ['idhs14', 'SUM(CIFKG) AS CIFKG', 'WAKTU'],
-        'condition' => 'WAKTU >= :waktu_dari AND WAKTU <= :waktu_sampai AND NEG_ASAL = :neg_asal',
+        'condition' => 'WAKTU >= :waktu_dari AND WAKTU <= :waktu_sampai AND NEG_ASAL = :neg_asal AND PELBONG = :pelbong AND HS = :hs',
         'params' => [
             ':waktu_dari' => $model->dari_tanggal,
             ':waktu_sampai' => $model->sampai_tanggal,
             ':neg_asal' => $asalnegara->neg_Asal,
+            ':pelbong' => $pelbongkar->namaPelbong,
+            ':hs' => $masterhs->kodeHS,
         ],
         'group' => 'WAKTU',
     ]);
-
+   
     $data = [];
     foreach ($hs14 as $row) {
         $data[] = [floatval($row->CIFKG)];
+        $cifkg[] = floatval($row->CIFKG);
     }
 
     $series[$i]['data'] = $data;
@@ -213,4 +215,9 @@ foreach ((array) $asalnegaras as $i => $kodeNeg) {
         'series' => $series,
     ),
 )); ?>
+
+<?php $cifkg = array_filter($cifkg); ?>
+<label>Max</label><?= max($cifkg); ?><br />
+<label>Min</label><?= min($cifkg); ?><br />
+<label>Average</label><?= (array_sum($cifkg) / count($cifkg)); ?><br />
 </div>
