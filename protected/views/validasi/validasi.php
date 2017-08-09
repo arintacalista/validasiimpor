@@ -134,10 +134,11 @@ foreach ((array) $asalnegaras as $i => $kodeNeg) {
     $series[$i]['name'] = $asalnegara->neg_Asal;
     $pelbongkar = pelbongkar::model()->findByPk($model->namaPelbong);
     $masterhs = masterhs::model()->findByPk($model->kodeHS);
-       
+
     $hs14 = Hs14::model()->findAll([
         'select' => ['idhs14', 'SUM(CIFKG) AS CIFKG', 'WAKTU'],
         'condition' => 'WAKTU >= :waktu_dari AND WAKTU <= :waktu_sampai AND NEG_ASAL = :neg_asal AND PELBONG = :pelbong AND HS = :hs',
+        // 'condition' => 'WAKTU >= :waktu_dari AND WAKTU <= :waktu_sampai AND NEG_ASAL = :neg_asal',
         'params' => [
             ':waktu_dari' => $model->dari_tanggal,
             ':waktu_sampai' => $model->sampai_tanggal,
@@ -147,7 +148,7 @@ foreach ((array) $asalnegaras as $i => $kodeNeg) {
         ],
         'group' => 'WAKTU',
     ]);
-   
+
     $data = [];
     foreach ($hs14 as $row) {
         $data[] = [floatval($row->CIFKG)];
@@ -211,13 +212,51 @@ foreach ((array) $asalnegaras as $i => $kodeNeg) {
                 ]
             ]
         ],
-        
+
         'series' => $series,
     ),
 )); ?>
 
+<?php $this->Widget('ext.highcharts.HighchartsWidget', array(
+    'options' => array(
+        'chart' => [
+            'type' => 'line',
+        ],
+
+        'title' => [
+            'text' => 'Solar Employment Growth by Sector, 2010-2016'
+        ],
+
+        'subtitle' => [
+            'text' => 'Source => thesolarfoundation.com'
+        ],
+
+        'yAxis' => [
+            'title' => [
+                'text' => 'Number of Employees'
+            ]
+        ],
+        'legend' => [
+            'layout' => 'vertical',
+            'align' => 'right',
+            'verticalAlign' => 'middle'
+        ],
+
+        'plotOptions' => [
+            'series' => [
+                'pointStart' => 2010
+            ]
+        ],
+
+        'series' => $series,
+    ),
+)); ?>
+
+
+
+
 <?php $cifkg = array_filter($cifkg); ?>
-<label>Max</label><?= max($cifkg); ?><br />
-<label>Min</label><?= min($cifkg); ?><br />
-<label>Average</label><?= (array_sum($cifkg) / count($cifkg)); ?><br />
+<label>Max : </label><?= (count($cifkg) > 0 ? max($cifkg) : '0'); ?><br />
+<label>Min : </label><?= (count($cifkg) > 0 ? min($cifkg) : '0'); ?><br />
+<label>Average : </label><?= (count($cifkg) > 0 ? (array_sum($cifkg) / count($cifkg)) : '0'); ?><br />
 </div>
