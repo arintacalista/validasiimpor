@@ -25,5 +25,5 @@ Done :
 - ada pilihan diagram line
 
 Undone :
-- ada pilihan 'analyze' 
+- add button 'analyze' 
 - integrating R and PHP (https://www.r-bloggers.com/integrating-php-and-r/)
