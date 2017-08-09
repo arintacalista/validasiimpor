@@ -16,9 +16,17 @@ GROUP BY WAKTU
 
 Done :
 - Line chart in home.
-
-Undone :
+- Select more than 1 choice (in negara asal) in validasi
 - Isian kolom 'dari tanggal' dan 'sampai tanggal'
 - Dependencies dropdown list in validasi
-- Select more than 1 choice (in negara asal, namaPelbong,jenis Komoditas, dan jenis komoditas HS) in validasi
 - Add scatter plot
+
+
+Undone :
+- Scatter plot tampil sesuai pilihan tgl, negara asal, prov tujuan, pelbong, HS
+- ada pilihan diagram line
+- buat nilai maks min dan rata2
+- ada pilihan 'analyze' 
+- integrating R and PHP
+
+
