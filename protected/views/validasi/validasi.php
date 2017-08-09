@@ -224,28 +224,26 @@ foreach ((array) $asalnegaras as $i => $kodeNeg) {
         ],
 
         'title' => [
-            'text' => 'Solar Employment Growth by Sector, 2010-2016'
+            'text' => 'Data Impor'
         ],
 
         'subtitle' => [
-            'text' => 'Source => thesolarfoundation.com'
+            'text' => 'Sumber : Dirjen Bea dan Cukai'
         ],
 
+        'xAxis' => [
+            'categories' => $categories,
+        ],
+        
         'yAxis' => [
             'title' => [
-                'text' => 'Number of Employees'
+                'text' => 'CIFKG'
             ]
         ],
         'legend' => [
             'layout' => 'vertical',
             'align' => 'right',
             'verticalAlign' => 'middle'
-        ],
-
-        'plotOptions' => [
-            'series' => [
-                'pointStart' => 2010
-            ]
         ],
 
         'series' => $series,
