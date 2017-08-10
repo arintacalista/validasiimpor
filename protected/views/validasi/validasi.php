@@ -3,7 +3,7 @@
         height: 600px;
         overflow-y: scroll;
     }
-    
+
     .box {
      width: 120px;
      height: 100px;
@@ -125,7 +125,7 @@
 
 <?php
 $asalnegaras = $model->neg_Asal;
-$series = $categories = $cifkg = [];
+$series_berat = $series_nilai = $categories = $cifkg = [];
 
 if ($model->dari_tanggal && $model->sampai_tanggal) {
     $startDate = DateTime::createFromFormat('Ym', $model->dari_tanggal);
@@ -145,26 +145,28 @@ foreach ((array) $asalnegaras as $i => $kodeNeg) {
     $masterhs = masterhs::model()->findByPk($model->kodeHS);
 
     $hs14 = Hs14::model()->findAll([
-        'select' => ['idhs14', 'SUM(CIFKG) AS CIFKG', 'WAKTU'],
-        'condition' => 'WAKTU >= :waktu_dari AND WAKTU <= :waktu_sampai AND NEG_ASAL = :neg_asal AND PELBONG = :pelbong AND HS = :hs',
-        // 'condition' => 'WAKTU >= :waktu_dari AND WAKTU <= :waktu_sampai AND NEG_ASAL = :neg_asal',
+        'select' => ['idhs14', 'SUM(BERAT) AS BERAT', 'SUM(NILAI) AS NILAI', 'WAKTU'],
+        // 'condition' => 'WAKTU >= :waktu_dari AND WAKTU <= :waktu_sampai AND NEG_ASAL = :neg_asal AND PELBONG = :pelbong AND HS = :hs',
+        'condition' => 'WAKTU >= :waktu_dari AND WAKTU <= :waktu_sampai AND NEG_ASAL = :neg_asal',
         'params' => [
             ':waktu_dari' => $model->dari_tanggal,
             ':waktu_sampai' => $model->sampai_tanggal,
             ':neg_asal' => $asalnegara->neg_Asal,
-            ':pelbong' => $pelbongkar->namaPelbong,
-            ':hs' => $masterhs->kodeHS,
+            // ':pelbong' => $pelbongkar->namaPelbong,
+            // ':hs' => $masterhs->kodeHS,
         ],
         'group' => 'WAKTU',
     ]);
 
-    $data = [];
+    $data_berat = $data_nilai = [];
     foreach ($hs14 as $row) {
-        $data[] = [floatval($row->CIFKG)];
+        $data_berat[] = [floatval($row->BERAT)];
+        $data_nilai[] = [floatval($row->NILAI)];
         $cifkg[] = floatval($row->CIFKG);
     }
 
-    $series[$i]['data'] = $data;
+    $series_berat[$i]['data'] = $data_berat;
+    $series_nilai[$i]['data'] = $data_nilai;
 }
 ?>
 
@@ -187,7 +189,7 @@ foreach ((array) $asalnegaras as $i => $kodeNeg) {
         'xAxis' => [
             'categories' => $categories,
         ],
-        
+
         'yAxis' => [
             'title' => [
                 'text' => 'Berat'
@@ -199,7 +201,7 @@ foreach ((array) $asalnegaras as $i => $kodeNeg) {
             'verticalAlign' => 'middle'
         ],
 
-        'series' => $series,
+        'series' => $series_berat,
     ),
 )); ?>
 
@@ -220,10 +222,10 @@ foreach ((array) $asalnegaras as $i => $kodeNeg) {
         'xAxis' => [
             'categories' => $categories,
         ],
-        
+
         'yAxis' => [
             'title' => [
-                'text' => 'CIFKG'
+                'text' => 'Nilai'
             ]
         ],
         'legend' => [
@@ -232,7 +234,7 @@ foreach ((array) $asalnegaras as $i => $kodeNeg) {
             'verticalAlign' => 'middle'
         ],
 
-        'series' => $series,
+        'series' => $series_nilai,
     ),
 )); ?>
 
@@ -246,7 +248,7 @@ foreach ((array) $asalnegaras as $i => $kodeNeg) {
 </div>
 
 
-<?php 
+<?php
 $output = exec("Rscript boxcox.R");
 echo $output;
 ?>
