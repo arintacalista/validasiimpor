@@ -3,7 +3,16 @@
         height: 600px;
         overflow-y: scroll;
     }
+    
+    .box {
+     width: 120px;
+     height: 100px;
+     background-color: #cef6ce;
+     border: 2px #B40404;
+   }
 </style>
+
+
 
 <?php $this->pageTitle = Yii::app()->name; ?>
 
@@ -159,58 +168,35 @@ foreach ((array) $asalnegaras as $i => $kodeNeg) {
 }
 ?>
 
+
+
 <?php $this->Widget('ext.highcharts.HighchartsWidget', array(
     'options' => array(
         'chart' => [
-            'type' => 'scatter',
-            'zoomType' => 'xy'
+            'type' => 'line',
         ],
-        'title' => ['text' => 'Data Impor'],
-        'subtitle' => ['text' => 'Sumber : Dirjen Bea dan Cukai'],
+
+        'title' => [
+            'text' => 'Berat'
+        ],
+
+        'subtitle' => [
+            'text' => 'Sumber : Dirjen Bea dan Cukai'
+        ],
+
         'xAxis' => [
             'categories' => $categories,
-            'title' => [
-                'enabled' => true,
-                'text' => 'Waktu'
-            ],
-            'startOnTick' => true,
-            'endOnTick' => true,
-            'showLastLabel' => true
         ],
+        
         'yAxis' => [
-            'title' => ['text' => 'CIFKG']
+            'title' => [
+                'text' => 'Berat'
+            ]
         ],
         'legend' => [
             'layout' => 'vertical',
-            'align' => 'left',
-            'verticalAlign' => 'top',
-            'x' => 100,
-            'y' => 70,
-            'floating' => true,
-            // 'backgroundColor' => "(Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'",
-            'borderWidth' => 1
-        ],
-        'plotOptions' => [
-            'scatter' => [
-                'marker' => [
-                    'radius' => 5,
-                    'states' => [
-                        'hover' => [
-                            'enabled' => true,
-                            'lineColor' => 'rgb(100,100,100)'
-                        ]
-                    ]
-                ],
-                'states' => [
-                    'hover' => [
-                        'marker' => ['enabled' => false]
-                    ]
-                ],
-                'tooltip' => [
-                    'headerFormat' => '<b>{series.name}</b><br>',
-                    'pointFormat' => 'Tahun: {point.x}, CIFKG: {point.y}'
-                ]
-            ]
+            'align' => 'right',
+            'verticalAlign' => 'middle'
         ],
 
         'series' => $series,
@@ -224,7 +210,7 @@ foreach ((array) $asalnegaras as $i => $kodeNeg) {
         ],
 
         'title' => [
-            'text' => 'Data Impor'
+            'text' => 'Nilai'
         ],
 
         'subtitle' => [
@@ -251,10 +237,18 @@ foreach ((array) $asalnegaras as $i => $kodeNeg) {
 )); ?>
 
 
-
-
+<div class="box">
 <?php $cifkg = array_filter($cifkg); ?>
+<label><h3>Summary</h3></label><br/>
 <label>Max : </label><?= (count($cifkg) > 0 ? max($cifkg) : '0'); ?><br />
 <label>Min : </label><?= (count($cifkg) > 0 ? min($cifkg) : '0'); ?><br />
 <label>Average : </label><?= (count($cifkg) > 0 ? (array_sum($cifkg) / count($cifkg)) : '0'); ?><br />
+</div>
+
+
+<?php 
+$output = exec("Rscript boxcox.R");
+echo $output;
+?>
+
 </div>

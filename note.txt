@@ -33,3 +33,9 @@ Undone :
 - integrating R and PHP (https://www.r-bloggers.com/integrating-php-and-r/)
 https://github.com/kachkaev/php-r
 >>>>>>> master
+- di halaman validasi jadinya ada 2 chart dan keduanya line chart. Line chart pertama itu grafik 'berat' kemudian yang dibawahnya satu lagi grafik 'nilai' jadinya yg cifkg itu cuma untuk yg di halaman home dan untuk perhitungan max min dan average yg di halaman validasi
+
+
+
+
+
