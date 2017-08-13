@@ -3,9 +3,13 @@
    .right   { text-align: right;}
    .center  { text-align: center;}
    .justify { text-align: justify;}
+   .panel-body.blok1{
+        height: 600px;
+        overflow-y: scroll;
+    }
 </style>
+<div class="panel-body.blok1">
 <br>
-
 <?php $this->pageTitle = Yii::app()->name; ?>
 <h1 class="center">Welcome to <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
 <br />
@@ -54,6 +58,42 @@ foreach ($asalnegaras as $i => $asalnegara) {
 <?php $this->Widget('ext.highcharts.HighchartsWidget', array(
     'options' => array(
         'chart' => [
+            'type' => 'line',
+        ],
+
+        'title' => [
+            'text' => 'Data Impor'
+        ],
+
+        'subtitle' => [
+            'text' => 'tahun 2015'
+        ],
+
+        'xAxis' => [
+            'categories' => $categories,
+        ],
+
+        'yAxis' => [
+            'title' => [
+                'text' => 'CIFKG'
+            ]
+        ],
+        'legend' => [
+            'layout' => 'vertical',
+            'align' => 'right',
+            'verticalAlign' => 'middle'
+        ],
+
+
+        'series' => $series,
+    ),
+)); ?>
+
+
+</br>
+<?php $this->Widget('ext.highcharts.HighchartsWidget', array(
+    'options' => array(
+        'chart' => [
             'type' => 'scatter',
             'zoomType' => 'xy'
         ],
@@ -74,7 +114,7 @@ foreach ($asalnegaras as $i => $asalnegara) {
         ],
         'legend' => [
             'layout' => 'vertical',
-            'align' => 'left',
+            'align' => 'right',
             'verticalAlign' => 'top',
             'x' => 100,
             'y' => 70,
@@ -100,7 +140,7 @@ foreach ($asalnegaras as $i => $asalnegara) {
                 ],
                 'tooltip' => [
                     'headerFormat' => '<b>{series.name}</b><br>',
-                    'pointFormat' => 'Tahun: {point.x}, CIFKG: {point.y}'
+                    'pointFormat' => ' CIFKG: {point.y}'
                 ]
             ]
         ],
@@ -108,3 +148,14 @@ foreach ($asalnegaras as $i => $asalnegara) {
         'series' => $series,
     ),
 )); ?>
+
+<div class="center">
+<?php
+    exec('C:\Windows\System32\cmd.exe /c START C:\xampp\htdocs\validasiImpor\rscript\run.bat');
+    // echo '<a href="output95/output.png">Click Here</a>';
+    echo '<img src="output95/output.png"/>';
+?>
+</div>
+
+
+</div>

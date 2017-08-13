@@ -3,7 +3,9 @@
         height: 600px;
         overflow-y: scroll;
     }
-
+    .center  { 
+        text-align: center;
+    }
     .box {
      width: 120px;
      height: 100px;
@@ -120,6 +122,7 @@
         </td>
     </tr>
 </table>
+<script src="../../../js/jquery-3.1.1.min.js"></script>   
 
 <?php $this->endWidget(); ?>
 
@@ -238,7 +241,7 @@ foreach ((array) $asalnegaras as $i => $kodeNeg) {
     ),
 )); ?>
 
-
+<div class="center"></div>
 <div class="box">
 <?php $cifkg = array_filter($cifkg); ?>
 <label><h3>Summary</h3></label><br/>
@@ -248,9 +251,5 @@ foreach ((array) $asalnegaras as $i => $kodeNeg) {
 </div>
 
 
-<?php
-$output = exec("Rscript boxcox.R");
-echo $output;
-?>
 
 </div>
