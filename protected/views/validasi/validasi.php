@@ -154,7 +154,6 @@ if ( ! empty($asalnegaras)) {
         $criteria->addCondition('WAKTU <= :waktu_sampai'); $params[':waktu_sampai'] = $model->sampai_tanggal;
         $criteria->addCondition('NEG_ASAL = :neg_asal'); $params[':neg_asal'] = $asalnegara->neg_Asal;
 
-        if ($model->namaPelbong) { $criteria->addCondition('NEG_ASAL = :neg_asal'); $params[':neg_asal'] = $pelbongkar->namaPelbong; }
         // if ($model->nama_prov) { $criteria->addCondition('PELBONG = :pelbong'); $params[':pelbong'] = $model->nama_prov; }
         if ($model->namaPelbong) { $criteria->addCondition('PELBONG = :pelbong'); $params[':pelbong'] = $pelbongkar->namaPelbong; }
         if ($model->kodeHS) { $criteria->addCondition('HS = :hs'); $params[':hs'] = $masterhs->kodeHS; }
@@ -187,7 +186,6 @@ if ( ! empty($asalnegaras)) {
     $criteria->addCondition('WAKTU >= :waktu_dari'); $params[':waktu_dari'] = $model->dari_tanggal;
     $criteria->addCondition('WAKTU <= :waktu_sampai'); $params[':waktu_sampai'] = $model->sampai_tanggal;
 
-    if ($model->namaPelbong) { $criteria->addCondition('NEG_ASAL = :neg_asal'); $params[':neg_asal'] = $pelbongkar->namaPelbong; }
     // if ($model->nama_prov) { $criteria->addCondition('PELBONG = :pelbong'); $params[':pelbong'] = $model->nama_prov; }
     if ($model->namaPelbong) { $criteria->addCondition('PELBONG = :pelbong'); $params[':pelbong'] = $pelbongkar->namaPelbong; }
     if ($model->kodeHS) { $criteria->addCondition('HS = :hs'); $params[':hs'] = $masterhs->kodeHS; }
