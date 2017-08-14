@@ -141,6 +141,7 @@ if ($model->dari_tanggal && $model->sampai_tanggal) {
     }
 }
 
+dump($model);
 if ( ! empty($asalnegaras)) {
     foreach ((array) $asalnegaras as $i => $kodeNeg) {
         $asalnegara = asalnegara::model()->findByPk($kodeNeg);
