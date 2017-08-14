@@ -128,7 +128,7 @@
 
 <?php
 $asalnegaras = $model->neg_Asal;
-$series_berat = $series_nilai = $categories = $cifkg = [];
+$series_berat = $series_nilai = $series_cifkg = $categories = $cifkg = [];
 
 if ($model->dari_tanggal && $model->sampai_tanggal) {
     $startDate = DateTime::createFromFormat('Ym', $model->dari_tanggal);
@@ -141,41 +141,60 @@ if ($model->dari_tanggal && $model->sampai_tanggal) {
     }
 }
 
-foreach ((array) $asalnegaras as $i => $kodeNeg) {
-    $asalnegara = asalnegara::model()->findByPk($kodeNeg);
-    $series[$i]['name'] = $asalnegara->neg_Asal;
+if ( ! empty($asalnegaras)) {
+    foreach ((array) $asalnegaras as $i => $kodeNeg) {
+        $asalnegara = asalnegara::model()->findByPk($kodeNeg);
+        $pelbongkar = pelbongkar::model()->findByPk($model->namaPelbong);
+        $masterhs = masterhs::model()->findByPk($model->kodeHS);
+
+        $params = [];
+        $criteria = new CDbCriteria;
+        $criteria->select = ['idhs14', 'SUM(BERAT) AS BERAT', 'SUM(NILAI) AS NILAI', 'WAKTU', 'SUM(CIFKG) AS CIFKG'];
+        $criteria->addCondition('WAKTU >= :waktu_dari'); $params[':waktu_dari'] = $model->dari_tanggal;
+        $criteria->addCondition('WAKTU <= :waktu_sampai'); $params[':waktu_sampai'] = $model->sampai_tanggal;
+        $criteria->addCondition('NEG_ASAL = :neg_asal'); $params[':neg_asal'] = $asalnegara->neg_Asal;
+
+        if ($model->namaPelbong) { $criteria->addCondition('NEG_ASAL = :neg_asal'); $params[':neg_asal'] = $pelbongkar->namaPelbong; }
+        // if ($model->nama_prov) { $criteria->addCondition('PELBONG = :pelbong'); $params[':pelbong'] = $model->nama_prov; }
+        if ($model->namaPelbong) { $criteria->addCondition('PELBONG = :pelbong'); $params[':pelbong'] = $pelbongkar->namaPelbong; }
+        if ($model->kodeHS) { $criteria->addCondition('HS = :hs'); $params[':hs'] = $masterhs->kodeHS; }
+
+        $criteria->params = $params;
+        $criteria->group = 'WAKTU';
+        $hs14 = Hs14::model()->findAll($criteria);
+
+        $data_berat = $data_nilai = [];
+        foreach ($hs14 as $row) {
+            $data_berat[] = [floatval($row->BERAT)];
+            $data_nilai[] = [floatval($row->NILAI)];
+            $cifkg[] = floatval($row->CIFKG);
+        }
+
+        $series_berat[$i]['data'] = $data_berat;
+        $series_berat[$i]['name'] = $asalnegara->neg_Asal;
+        $series_nilai[$i]['data'] = $data_nilai;
+        $series_nilai[$i]['name'] = $asalnegara->neg_Asal;
+        $series_cifkg[$i]['data'] = $cifkg;
+        $series_cifkg[$i]['name'] = $asalnegara->neg_Asal;
+    }
+} else {
     $pelbongkar = pelbongkar::model()->findByPk($model->namaPelbong);
     $masterhs = masterhs::model()->findByPk($model->kodeHS);
-
-    // $hs14 = Hs14::model()->findAll([
-    //     'select' => ['idhs14', 'SUM(BERAT) AS BERAT', 'SUM(NILAI) AS NILAI', 'WAKTU'],
-    //     // 'condition' => 'WAKTU >= :waktu_dari AND WAKTU <= :waktu_sampai AND NEG_ASAL = :neg_asal AND PELBONG = :pelbong AND HS = :hs',
-    //     'condition' => 'WAKTU >= :waktu_dari AND WAKTU <= :waktu_sampai AND NEG_ASAL = :neg_asal',
-    //     'params' => [
-    //         ':waktu_dari' => $model->dari_tanggal,
-    //         ':waktu_sampai' => $model->sampai_tanggal,
-    //         ':neg_asal' => $asalnegara->neg_Asal,
-    //         // ':pelbong' => $pelbongkar->namaPelbong,
-    //         // ':hs' => $masterhs->kodeHS,
-    //     ],
-    //     'group' => 'WAKTU',
-    // ]);
 
     $params = [];
     $criteria = new CDbCriteria;
     $criteria->select = ['idhs14', 'SUM(BERAT) AS BERAT', 'SUM(NILAI) AS NILAI', 'WAKTU', 'SUM(CIFKG) AS CIFKG'];
     $criteria->addCondition('WAKTU >= :waktu_dari'); $params[':waktu_dari'] = $model->dari_tanggal;
     $criteria->addCondition('WAKTU <= :waktu_sampai'); $params[':waktu_sampai'] = $model->sampai_tanggal;
-    $criteria->addCondition('NEG_ASAL = :neg_asal'); $params[':neg_asal'] = $asalnegara->neg_Asal;
 
+    if ($model->namaPelbong) { $criteria->addCondition('NEG_ASAL = :neg_asal'); $params[':neg_asal'] = $pelbongkar->namaPelbong; }
     // if ($model->nama_prov) { $criteria->addCondition('PELBONG = :pelbong'); $params[':pelbong'] = $model->nama_prov; }
-    if ($model->namaPelbong) { $criteria->addCondition('PELBONG = :pelbong'); $params[':pelbong'] = $model->namaPelbong; }
-    if ($model->kodeHS) { $criteria->addCondition('HS = :hs'); $params[':hs'] = $model->kodeHS; }
+    if ($model->namaPelbong) { $criteria->addCondition('PELBONG = :pelbong'); $params[':pelbong'] = $pelbongkar->namaPelbong; }
+    if ($model->kodeHS) { $criteria->addCondition('HS = :hs'); $params[':hs'] = $masterhs->kodeHS; }
 
     $criteria->params = $params;
     $criteria->group = 'WAKTU';
     $hs14 = Hs14::model()->findAll($criteria);
-    
 
     $data_berat = $data_nilai = [];
     foreach ($hs14 as $row) {
@@ -184,8 +203,9 @@ foreach ((array) $asalnegaras as $i => $kodeNeg) {
         $cifkg[] = floatval($row->CIFKG);
     }
 
-    $series_berat[$i]['data'] = $data_berat;
-    $series_nilai[$i]['data'] = $data_nilai;
+    $series_berat[0]['data'] = $data_berat;
+    $series_nilai[0]['data'] = $data_nilai;
+    $series_cifkg[0]['data'] = $cifkg;
 }
 ?>
 
@@ -218,6 +238,22 @@ foreach ((array) $asalnegaras as $i => $kodeNeg) {
         'xAxis' => ['categories' => $categories],
         'yAxis' => ['title' => ['text' => 'Nilai']],
         'series' => $series_nilai,
+    ),
+)); ?>
+
+<?php $this->Widget('ext.highcharts.HighchartsWidget', array(
+    'options' => array(
+        'chart' => ['type' => 'line'],
+        'legend' => [
+            'align' => 'right',
+            'layout' => 'vertical',
+            'verticalAlign' => 'middle'
+        ],
+        'subtitle' => ['text' => 'Sumber : Dirjen Bea dan Cukai'],
+        'title' => ['text' => 'Cifkg'],
+        'xAxis' => ['categories' => $categories],
+        'yAxis' => ['title' => ['text' => 'Nilai']],
+        'series' => $series_cifkg,
     ),
 )); ?>
 
