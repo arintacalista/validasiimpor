@@ -25,35 +25,10 @@ Done :
 - ada pilihan diagram line
 
 Undone :
-<<<<<<< HEAD
-- add button 'analyze' 
-- integrating R and PHP (https://www.r-bloggers.com/integrating-php-and-r/)
-=======
 - ada pilihan 'analyze'
 - integrating R and PHP (https://www.r-bloggers.com/integrating-php-and-r/)
 https://github.com/kachkaev/php-r
->>>>>>> master
-- perhitungan max, min, average dari cikfg
-- bisa filter hs saja, jadi hs di pilihan pertama
-- bisa filter hs dan negara asal saja
-- bisa filer hs, negara asal, pelbong, prov tujuan
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- perhitungan max, min, average dari cikfg (75%)
+- bisa filter hs saja, jadi hs di pilihan pertama (75%)
+- bisa filter hs dan negara asal saja (75%)
+- bisa filer hs, negara asal, pelbong, prov tujuan (75%, column provinsi tidak ada di table hs14)

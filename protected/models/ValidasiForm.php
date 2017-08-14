@@ -23,8 +23,8 @@ class ValidasiForm extends CFormModel
 	public function rules()
 	{
 		return array(
-			// semua attriubute required
-			array('dari_tanggal, sampai_tanggal, neg_Asal, nama_prov, namaPelbong, jenisKom, kodeHS', 'required'),
+			array('dari_tanggal, sampai_tanggal, neg_Asal', 'required'),
+            array('nama_prov, namaPelbong, jenisKom, kodeHS', 'safe'),
 		);
 	}
 

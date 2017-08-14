@@ -3,7 +3,7 @@
         height: 600px;
         overflow-y: scroll;
     }
-    .center  { 
+    .center  {
         text-align: center;
     }
     .box {
@@ -122,7 +122,7 @@
         </td>
     </tr>
 </table>
-<script src="../../../js/jquery-3.1.1.min.js"></script>   
+<script src="../../../js/jquery-3.1.1.min.js"></script>
 
 <?php $this->endWidget(); ?>
 
@@ -147,19 +147,35 @@ foreach ((array) $asalnegaras as $i => $kodeNeg) {
     $pelbongkar = pelbongkar::model()->findByPk($model->namaPelbong);
     $masterhs = masterhs::model()->findByPk($model->kodeHS);
 
-    $hs14 = Hs14::model()->findAll([
-        'select' => ['idhs14', 'SUM(BERAT) AS BERAT', 'SUM(NILAI) AS NILAI', 'WAKTU'],
-        // 'condition' => 'WAKTU >= :waktu_dari AND WAKTU <= :waktu_sampai AND NEG_ASAL = :neg_asal AND PELBONG = :pelbong AND HS = :hs',
-        'condition' => 'WAKTU >= :waktu_dari AND WAKTU <= :waktu_sampai AND NEG_ASAL = :neg_asal',
-        'params' => [
-            ':waktu_dari' => $model->dari_tanggal,
-            ':waktu_sampai' => $model->sampai_tanggal,
-            ':neg_asal' => $asalnegara->neg_Asal,
-            // ':pelbong' => $pelbongkar->namaPelbong,
-            // ':hs' => $masterhs->kodeHS,
-        ],
-        'group' => 'WAKTU',
-    ]);
+    // $hs14 = Hs14::model()->findAll([
+    //     'select' => ['idhs14', 'SUM(BERAT) AS BERAT', 'SUM(NILAI) AS NILAI', 'WAKTU'],
+    //     // 'condition' => 'WAKTU >= :waktu_dari AND WAKTU <= :waktu_sampai AND NEG_ASAL = :neg_asal AND PELBONG = :pelbong AND HS = :hs',
+    //     'condition' => 'WAKTU >= :waktu_dari AND WAKTU <= :waktu_sampai AND NEG_ASAL = :neg_asal',
+    //     'params' => [
+    //         ':waktu_dari' => $model->dari_tanggal,
+    //         ':waktu_sampai' => $model->sampai_tanggal,
+    //         ':neg_asal' => $asalnegara->neg_Asal,
+    //         // ':pelbong' => $pelbongkar->namaPelbong,
+    //         // ':hs' => $masterhs->kodeHS,
+    //     ],
+    //     'group' => 'WAKTU',
+    // ]);
+
+    $params = [];
+    $criteria = new CDbCriteria;
+    $criteria->select = ['idhs14', 'SUM(BERAT) AS BERAT', 'SUM(NILAI) AS NILAI', 'WAKTU', 'SUM(CIFKG) AS CIFKG'];
+    $criteria->addCondition('WAKTU >= :waktu_dari'); $params[':waktu_dari'] = $model->dari_tanggal;
+    $criteria->addCondition('WAKTU <= :waktu_sampai'); $params[':waktu_sampai'] = $model->sampai_tanggal;
+    $criteria->addCondition('NEG_ASAL = :neg_asal'); $params[':neg_asal'] = $asalnegara->neg_Asal;
+
+    // if ($model->nama_prov) { $criteria->addCondition('PELBONG = :pelbong'); $params[':pelbong'] = $model->nama_prov; }
+    if ($model->namaPelbong) { $criteria->addCondition('PELBONG = :pelbong'); $params[':pelbong'] = $model->namaPelbong; }
+    if ($model->kodeHS) { $criteria->addCondition('HS = :hs'); $params[':hs'] = $model->kodeHS; }
+
+    $criteria->params = $params;
+    $criteria->group = 'WAKTU';
+    $hs14 = Hs14::model()->findAll($criteria);
+    
 
     $data_berat = $data_nilai = [];
     foreach ($hs14 as $row) {
@@ -173,83 +189,45 @@ foreach ((array) $asalnegaras as $i => $kodeNeg) {
 }
 ?>
 
-
-
 <?php $this->Widget('ext.highcharts.HighchartsWidget', array(
     'options' => array(
-        'chart' => [
-            'type' => 'line',
-        ],
-
-        'title' => [
-            'text' => 'Berat'
-        ],
-
-        'subtitle' => [
-            'text' => 'Sumber : Dirjen Bea dan Cukai'
-        ],
-
-        'xAxis' => [
-            'categories' => $categories,
-        ],
-
-        'yAxis' => [
-            'title' => [
-                'text' => 'Berat'
-            ]
-        ],
+        'chart' => ['type' => 'line'],
         'legend' => [
-            'layout' => 'vertical',
             'align' => 'right',
+            'layout' => 'vertical',
             'verticalAlign' => 'middle'
         ],
-
+        'subtitle' => ['text' => 'Sumber : Dirjen Bea dan Cukai'],
+        'title' => ['text' => 'Berat'],
+        'xAxis' => ['categories' => $categories],
+        'yAxis' => ['title' => ['text' => 'Berat']],
         'series' => $series_berat,
     ),
 )); ?>
 
 <?php $this->Widget('ext.highcharts.HighchartsWidget', array(
     'options' => array(
-        'chart' => [
-            'type' => 'line',
-        ],
-
-        'title' => [
-            'text' => 'Nilai'
-        ],
-
-        'subtitle' => [
-            'text' => 'Sumber : Dirjen Bea dan Cukai'
-        ],
-
-        'xAxis' => [
-            'categories' => $categories,
-        ],
-
-        'yAxis' => [
-            'title' => [
-                'text' => 'Nilai'
-            ]
-        ],
+        'chart' => ['type' => 'line'],
         'legend' => [
-            'layout' => 'vertical',
             'align' => 'right',
+            'layout' => 'vertical',
             'verticalAlign' => 'middle'
         ],
-
+        'subtitle' => ['text' => 'Sumber : Dirjen Bea dan Cukai'],
+        'title' => ['text' => 'Nilai'],
+        'xAxis' => ['categories' => $categories],
+        'yAxis' => ['title' => ['text' => 'Nilai']],
         'series' => $series_nilai,
     ),
 )); ?>
 
 <div class="center"></div>
 <div class="box">
-<?php $cifkg = array_filter($cifkg); ?>
-<label><h3>Summary</h3></label><br/>
-<label>Max : </label><?= (count($cifkg) > 0 ? max($cifkg) : '0'); ?><br />
-<label>Min : </label><?= (count($cifkg) > 0 ? min($cifkg) : '0'); ?><br />
-<label>Average : </label><?= (count($cifkg) > 0 ? (array_sum($cifkg) / count($cifkg)) : '0'); ?><br />
+    <?php $cifkg = array_filter($cifkg); ?>
+    <label><h3>Summary</h3></label><br/>
+    <label>Max : </label><?= (count($cifkg) > 0 ? max($cifkg) : '0'); ?><br />
+    <label>Min : </label><?= (count($cifkg) > 0 ? min($cifkg) : '0'); ?><br />
+    <label>Average : </label><?= (count($cifkg) > 0 ? (array_sum($cifkg) / count($cifkg)) : '0'); ?><br />
 </div>
-
-
 
 </div>
