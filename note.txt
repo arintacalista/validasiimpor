@@ -30,7 +30,7 @@ Done :
 
 Undone 
 - ada pilihan 'analyze'
-- integrating R and PHP (https://www.r-bloggers.com/integrating-php-and-r/)
-https://github.com/kachkaev/php-r
 - buat tampilan/deskripsi dalam bentuk tabel
 - Ngambil data tapi dari tabel yang terpisah2
+- admin bisa insert data ke database dari sistem
+- tahun penyajian di home otomatis setahun terakhir
