@@ -34,7 +34,7 @@ class ValidasiForm extends CFormModel
 	public function attributeLabels()
 	{
 		return array(
-			'neg_asal'=>'Negara Asal',
+			'neg_Asal'=>'Pencacahan',
 			'nama_prov'=>'Provinsi Tujuan',
 			'pel_bong'=>'Pelabuhan Bongkar',
 			'jenisKom'=>'Jenis komoditas',
@@ -64,3 +64,9 @@ class ValidasiForm extends CFormModel
 			return false;
 	}
 }
+
+
+//tambah fungsi reminder "waktu pencacahan sudah mau selesai"
+//tambah fungsi "perlu bantuan?"
+//setiap entri sudah clean tanyakan "jumlah dan nama ART" --> sebagai filter
+//gradasi warna chart yang lebih signifikan berbeda

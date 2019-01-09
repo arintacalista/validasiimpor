@@ -25,7 +25,7 @@
     'enableClientValidation' => true,
 )); ?>
 <div class="panel-body blok1">
-<h2>Silahkan memilih rincian data yang ingin ditampilkan</h2>
+<h2>Pencacahan</h2>
 
 <table>
     <tr>
@@ -35,11 +35,14 @@
                 'name' => 'ValidasiForm[dari_tanggal]',
                 'value' => $model->dari_tanggal,
                 'options' => array(
+
                     'changeMonth' => 'true',
                     'changeYear' => 'true',
-                    'dateFormat' => 'yymm',
+                    'dateFormat' => 'yymmdd',
                 ),
             )); ?>
+
+           
         </td>
         <td><?= $form->error($model, 'dari_tanggal'); ?></td>
     </tr>
@@ -52,15 +55,24 @@
                 'options' => array(
                     'changeMonth' => 'true',
                     'changeYear' => 'true',
-                    'dateFormat' => 'yymm',
+                    'dateFormat' => 'yymmdd',
                 ),
             )); ?>
         </td>
         <td><?= $form->error($model, 'sampai_tanggal'); ?></td>
-    </tr>
-    <tr>
-        <td><?= $form->labelEx($model, 'neg_Asal'); ?></td>
-        <td>
+    </tr></br>
+    </table>
+
+
+
+  
+
+
+
+    <table><h4>Bisa pilih salah satu dan atau semuanya.</h4>
+       <tr>
+        <td width="10%"><?= $form->labelEx($model, 'neg_Asal'); ?></td>
+        <td> 
             <?= Chosen::activeMultiSelect($model, 'neg_Asal', CHtml::listData(asalnegara::model()->findAll(), 'kodeNeg', 'neg_Asal'), [
                 'data-placeholder' => '---Pilih Negara Asal---',
                 'options' => [
@@ -122,6 +134,7 @@
         </td>
     </tr>
 </table>
+
 <script src="../../../js/jquery-3.1.1.min.js"></script>
 
 <?php $this->endWidget(); ?>
@@ -131,17 +144,17 @@ $asalnegaras = $model->neg_Asal;
 $series_berat = $series_nilai = $series_cifkg = $categories = $cifkg = [];
 
 if ($model->dari_tanggal && $model->sampai_tanggal) {
-    $startDate = DateTime::createFromFormat('Ym', $model->dari_tanggal);
-    $endDate = DateTime::createFromFormat('Ym', $model->sampai_tanggal);
-    $endDate = $endDate->modify( '+1 month' );
+    $startDate = DateTime::createFromFormat('Ymd', $model->dari_tanggal); // 2017-08
+    $endDate = DateTime::createFromFormat('Ymd', $model->sampai_tanggal); // 2017-09
+    $endDate = $endDate->modify( '+1month' ); // end 2017-10
     $interval = DateInterval::createFromDateString('1 month');
-    $periods = new DatePeriod($startDate, $interval, $endDate);
+    $periods = new DatePeriod($startDate, $interval, $endDate); // interval dari 2017-08 to 2017-10 = 201708, 2017-09
     foreach ($periods as $dt) {
         $categories[] = $dt->format('M Y');
     }
 }
 
-dump($model);
+
 if ( ! empty($asalnegaras)) {
     foreach ((array) $asalnegaras as $i => $kodeNeg) {
         $asalnegara = asalnegara::model()->findByPk($kodeNeg);
@@ -165,8 +178,8 @@ if ( ! empty($asalnegaras)) {
 
         $data_berat = $data_nilai = [];
         foreach ($hs14 as $row) {
-            $data_berat[] = [floatval($row->BERAT)];
-            $data_nilai[] = [floatval($row->NILAI)];
+            $data_berat[] = floatval($row->BERAT);
+            $data_nilai[] = floatval($row->NILAI);
             $cifkg[] = floatval($row->CIFKG);
         }
 
@@ -197,8 +210,8 @@ if ( ! empty($asalnegaras)) {
 
     $data_berat = $data_nilai = [];
     foreach ($hs14 as $row) {
-        $data_berat[] = [floatval($row->BERAT)];
-        $data_nilai[] = [floatval($row->NILAI)];
+        $data_berat[] = floatval($row->BERAT);
+        $data_nilai[] = floatval($row->NILAI);
         $cifkg[] = floatval($row->CIFKG);
     }
 
@@ -206,6 +219,7 @@ if ( ! empty($asalnegaras)) {
     $series_nilai[0]['data'] = $data_nilai;
     $series_cifkg[0]['data'] = $cifkg;
 }
+
 ?>
 
 <?php $this->Widget('ext.highcharts.HighchartsWidget', array(
@@ -232,7 +246,7 @@ if ( ! empty($asalnegaras)) {
             'layout' => 'vertical',
             'verticalAlign' => 'middle'
         ],
-        'subtitle' => ['text' => 'Sumber : Dirjen Bea dan Cukai'],
+        'subtitle' => ['text' => ''],
         'title' => ['text' => 'Nilai'],
         'xAxis' => ['categories' => $categories],
         'yAxis' => ['title' => ['text' => 'Nilai']],
@@ -248,10 +262,10 @@ if ( ! empty($asalnegaras)) {
             'layout' => 'vertical',
             'verticalAlign' => 'middle'
         ],
-        'subtitle' => ['text' => 'Sumber : Dirjen Bea dan Cukai'],
+        'subtitle' => ['text' => ''],
         'title' => ['text' => 'Cifkg'],
         'xAxis' => ['categories' => $categories],
-        'yAxis' => ['title' => ['text' => 'Nilai']],
+        'yAxis' => ['title' => ['text' => 'Cifkg']],
         'series' => $series_cifkg,
     ),
 )); ?>

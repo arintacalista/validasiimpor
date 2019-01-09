@@ -7,7 +7,7 @@
 // CWebApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'Sistem Aplikasi Validasi Data Impor',
+	'name'=>'Sistem Monitoring Survei (SMS)',
 	'defaultController'=>'site/index',
 
 	// preloading 'log' component

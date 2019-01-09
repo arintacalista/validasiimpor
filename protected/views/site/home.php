@@ -8,7 +8,7 @@
         overflow-y: scroll;
     }
 </style>
-<div class="panel-body.blok1">
+<div class="panel-body blok1">
 <br>
 <?php $this->pageTitle = Yii::app()->name; ?>
 <h1 class="center">Welcome to <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
@@ -62,7 +62,7 @@ foreach ($asalnegaras as $i => $asalnegara) {
         ],
 
         'title' => [
-            'text' => 'Data Impor'
+            'text' => 'Progres Dokumen '
         ],
 
         'subtitle' => [
@@ -71,6 +71,13 @@ foreach ($asalnegaras as $i => $asalnegara) {
 
         'xAxis' => [
             'categories' => $categories,
+            'title' => [
+                'enabled' => true,
+                'text' => 'Waktu'
+            ],
+            'startOnTick' => true,
+            'endOnTick' => true,
+            'showLastLabel' => true
         ],
 
         'yAxis' => [
@@ -149,13 +156,12 @@ foreach ($asalnegaras as $i => $asalnegara) {
     ),
 )); ?>
 
-<div class="center">
+<!-- <div class="center">
 <?php
-    exec('C:\Windows\System32\cmd.exe /c START C:\xampp\htdocs\validasiImpor\rscript\run.bat');
+//    exec('C:\Windows\System32\cmd.exe /c START C:\xampp\htdocs\validasiImpor\rscript\run.bat');
     // echo '<a href="output95/output.png">Click Here</a>';
-    echo '<img src="output95/output.png"/>';
+   // echo '<img src="output95/output.png"/>';
 ?>
+</div> -->
 </div>
 
-
-</div>

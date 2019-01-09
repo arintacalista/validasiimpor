@@ -1,26 +1,21 @@
 <?php
 
 /**
- * This is the model class for table "hs14".
+ * This is the model class for table "jenis_survei".
  *
- * The followings are the available columns in table 'hs14':
- * @property integer $idhs14
- * @property string $HS
- * @property integer $BERAT
- * @property integer $NILAI
- * @property integer $WAKTU
- * @property string $NEG_ASAL
- * @property string $PELBONG
- * @property string $CIFKG
+ * The followings are the available columns in table 'jenis_survei':
+ * @property integer $id
+ * @property string $nama
+ * @property string $deskripsi
  */
-class Hs14 extends CActiveRecord
+class JenisSurvei extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'hs14';
+		return 'jenis_survei';
 	}
 
 	/**
@@ -31,14 +26,12 @@ class Hs14 extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('BERAT, NILAI, WAKTU', 'numerical', 'integerOnly'=>true),
-			array('HS', 'length', 'max'=>10),
-			array('NEG_ASAL', 'length', 'max'=>2),
-			array('PELBONG', 'length', 'max'=>5),
-			array('CIFKG', 'length', 'max'=>7),
+			array('nama', 'required'),
+			array('nama', 'length', 'max'=>200),
+			array('deskripsi', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('idhs14, HS, BERAT, NILAI, WAKTU, NEG_ASAL, PELBONG, CIFKG', 'safe', 'on'=>'search'),
+			array('id, nama, deskripsi', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -59,14 +52,9 @@ class Hs14 extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'idhs14' => 'Idhs14',
-			'HS' => 'Hs',
-			'BERAT' => 'Berat',
-			'NILAI' => 'Nilai',
-			'WAKTU' => 'Waktu',
-			'NEG_ASAL' => 'Neg Asal',
-			'PELBONG' => 'Pelbong',
-			'CIFKG' => 'Cifkg',
+			'id' => 'ID',
+			'nama' => 'Nama',
+			'deskripsi' => 'Deskripsi',
 		);
 	}
 
@@ -88,14 +76,9 @@ class Hs14 extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('idhs14',$this->idhs14);
-		$criteria->compare('HS',$this->HS,true);
-		$criteria->compare('BERAT',$this->BERAT);
-		$criteria->compare('NILAI',$this->NILAI);
-		$criteria->compare('WAKTU',$this->WAKTU);
-		$criteria->compare('NEG_ASAL',$this->NEG_ASAL,true);
-		$criteria->compare('PELBONG',$this->PELBONG,true);
-		$criteria->compare('CIFKG',$this->CIFKG,true);
+		$criteria->compare('id',$this->id);
+		$criteria->compare('nama',$this->nama,true);
+		$criteria->compare('deskripsi',$this->deskripsi,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -106,7 +89,7 @@ class Hs14 extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Hs14 the static model class
+	 * @return JenisSurvei the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

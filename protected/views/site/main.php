@@ -28,7 +28,7 @@
 		height: 17px;
 		width: 1450px;
 		margin-left: 0px;
-		background-color: #20B2AA;
+		background-color: #AFEEEE;
 	}
 
 
@@ -37,14 +37,14 @@
 
             <div id="topnav">
             </div>
-            <div id="header" style="background-color: #66CDAA;">
-                <div id="logo" style="display: inline-flex; background-color: #66CDAA;">
+            <div id="header" style="background-color: #AFEEEE;">
+                <div id="logo" style="display: inline-flex; background-color: #AFEEEE;">
                     <div style="margin-right: 10px;">
                         <img width="95px" height="73px" src="<?php echo Yii::app()->baseUrl; ?>/images/logo.png"></img>
                     </div>
                     <div>
-                   		<h1 style="display: inline">Sistem Aplikasi Validasi Data Impor</h1>
-                        <h4>Subdirektorat Statistik Impor BPS-RI</h4> 
+                   		<h1 style="display: inline" "font: "> Sistem Monitoring Survei (SMS) </h1>
+                        <h4>BPS Kota Samarinda</h4> 
                                                 
                     </div>
                 </div>
@@ -69,7 +69,7 @@
 
 </div>
 <div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?> by Badan Pusat Statistik 
+		Copyright &copy; <?php echo date('Y'); ?> by Badan Pusat Statistik Kota Samarinda
 		<br>All Rights Reserved.<br/>
 		<?php echo Yii::powered(); ?>
 	</div><!-- page -->

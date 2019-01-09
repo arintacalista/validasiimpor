@@ -52,16 +52,5 @@ class ValidasiController extends Controller
         }
     }
 
-    public function actionSelectKomoditas()
-    {
-        $$namaPelbong = $_POST['namaPelbong'];
-        $list = Jeniskomoditas::model()->findAll('id_prov = :id_prov', array(':id_prov' => $nama_prov));
-        $list = CHtml::listData($list, 'idPel', 'namaPelbong');
-
-        echo CHtml::tag('option', array('value' => ''), '---Pilih Pelabuhan Bongkar---', true);
-
-        foreach ($list as $key => $namaPelbong) {
-            echo CHtml::tag('option', array('value' => $key), CHtml::encode($namaPelbong), true);
-        }
-    }
+  
 }

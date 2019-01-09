@@ -1,0 +1,6 @@
+1. Copy folder and rename to vaildasiImport-gitlab
+2. Delete folder git.
+3. Git init.
+4. Register account in gitlab, and create project, copy url https https://git.stis.ac.id/arinta/SistemInformasiValidasiDataImpor.git
+5. Git add remote to gitlab, (local to origin gitlab).
+6. Push, add login with username and password.

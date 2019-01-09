@@ -1,9 +1,10 @@
 <?php
 
 /**
- * This is the model class for table "hs84".
+ * This is the model class for table "Upload".
  *
- * The followings are the available columns in table 'hs84':
+ * The followings are the available columns in table 'Upload':
+ * @property integer $idHS
  * @property string $hs
  * @property integer $berat
  * @property integer $nilai
@@ -12,14 +13,14 @@
  * @property string $pelbong
  * @property string $cifkg
  */
-class Hs84 extends CActiveRecord
+class Upload extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'hs84';
+		return 'Upload';
 	}
 
 	/**
@@ -30,14 +31,16 @@ class Hs84 extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('hs, berat, nilai, waktu, neg_asal, pelbong, cifkg', 'required'),
 			array('berat, nilai, waktu', 'numerical', 'integerOnly'=>true),
 			array('hs', 'length', 'max'=>10),
 			array('neg_asal', 'length', 'max'=>2),
 			array('pelbong', 'length', 'max'=>5),
 			array('cifkg', 'length', 'max'=>8),
+			array('file','file', 'types'=>'sql','allowEmpty'=> true,'safe'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('hs, berat, nilai, waktu, neg_asal, pelbong, cifkg', 'safe', 'on'=>'search'),
+			array('idHS, hs, berat, nilai, waktu, neg_asal, pelbong, cifkg', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -58,6 +61,7 @@ class Hs84 extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
+			'idHS' => 'Id Hs',
 			'hs' => 'Hs',
 			'berat' => 'Berat',
 			'nilai' => 'Nilai',
@@ -65,6 +69,7 @@ class Hs84 extends CActiveRecord
 			'neg_asal' => 'Neg Asal',
 			'pelbong' => 'Pelbong',
 			'cifkg' => 'Cifkg',
+			'file' => 'File',
 		);
 	}
 
@@ -86,6 +91,7 @@ class Hs84 extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
+		$criteria->compare('idHS',$this->idHS);
 		$criteria->compare('hs',$this->hs,true);
 		$criteria->compare('berat',$this->berat);
 		$criteria->compare('nilai',$this->nilai);
@@ -93,6 +99,7 @@ class Hs84 extends CActiveRecord
 		$criteria->compare('neg_asal',$this->neg_asal,true);
 		$criteria->compare('pelbong',$this->pelbong,true);
 		$criteria->compare('cifkg',$this->cifkg,true);
+		$criteria->compare('file',$this->file,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -103,10 +110,13 @@ class Hs84 extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Hs84 the static model class
+	 * @return Upload the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
+
+	public function Upload()
+	{}
 }
