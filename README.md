@@ -10,5 +10,8 @@
 
 Installation
 -------------------
-- Run command, composer update
-- Go to protected/config, then rename database.example.php, to database.php, and set your database connection
+- Run command
+```
+composer composer install
+```
+- Go to protected/config, then copy database.example.php to database.php, and set your database connection

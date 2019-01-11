@@ -50,18 +50,16 @@ class SiteController extends Controller
 		}
 		// display the login form
 		$this->render('index',array('model'=>$model));
-	
+
 	}
 
 	/**
 	 * This is the action to handle external exceptions.
 	 */
-		public function actionHome()
+	public function actionHome()
 	{
-		$dataProvider=new CActiveDataProvider('User');
-		$this->render('home',array(
-			'dataProvider'=>$dataProvider,
-		));
+		$dataProvider = new CActiveDataProvider('User');
+		$this->render('home');
 	}
 
 
@@ -80,7 +78,7 @@ class SiteController extends Controller
 	 * Displays the contact page
 	 */
 	public function actionContact()
-	{ 
+	{
 		/*$this-> layout='//layouts/main';*/
 
 		$model=new ContactForm;

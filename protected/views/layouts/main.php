@@ -16,22 +16,19 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css">
 
-	
+
 </head>
 <style>
-	.container{
-		height:650px;
-		width: 1650px;
-	}
+.container {
+    height:650px;
+    width: 100%
+}
 
-	.mytab{
-		height: 17px;
-		width: 1610px;
-		margin-left: 0px;
-		background-color: #4682B4;
-	}
-
-
+.mytab {
+    background-color: #4682B4;
+    height: 17px;
+    margin-left: 0px;
+}
 </style>
 <body>
 
@@ -44,8 +41,8 @@
                     </div>
                     <div>
                    		<h1 style="display: inline">Sistem Monitoring Survei (SMS)</h1>
-                        <h4>BPS Kota Samarinda</h4> 
-                                                
+                        <h4>BPS Kota Samarinda</h4>
+
                     </div>
                 </div>
 
@@ -53,7 +50,7 @@
 
 <div class="container" id="page">
 
-	
+
 	 <div id="mainmenu" style="margin-top: -6px;margin-left: -1px;">
 		<?php $this->widget('zii.widgets.CMenu',array(
 		'htmlOptions'=> array('class'=>'mytab'),
@@ -66,8 +63,8 @@
 				/*array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),*/
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),
-		)); ?> 
-	</div>  <!-- mainmenu --> 
+		)); ?>
+	</div>  <!-- mainmenu -->
 	<?php if(isset($this->breadcrumbs)):?>
 		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
 			'links'=>$this->breadcrumbs,
@@ -83,7 +80,7 @@
 </div><!-- page -->
 <div id="footer">
 
-		
+
 		Copyright &copy; <?php echo date('Y'); ?> by Badan Pusat Statistik Kota Samarinda
 		<br>All Rights Reserved.<br/>
 		<?php echo Yii::powered(); ?>
