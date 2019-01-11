@@ -20,6 +20,12 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'nama'); ?>
+		<?php echo $form->textField($model,'nama',array('size'=>60,'maxlength'=>200)); ?>
+		<?php echo $form->error($model,'nama'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->labelEx($model,'id_jenis_survei'); ?>
 		<?php echo $form->dropDownList($model,'id_jenis_survei', CHtml::listData(JenisSurvei::model()->findAll(), 'id', 'nama'), ['empty' => '']); ?>
 		<?php echo $form->error($model,'id_jenis_survei'); ?>

@@ -22,6 +22,7 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
+		'nama',
 		'id_jenis_survei',
 		'tanggal_mulai',
 		'tanggal_akhir',

@@ -5,6 +5,7 @@
  *
  * The followings are the available columns in table 'survei_dokumen':
  * @property integer $id
+ * @property string $nama
  * @property integer $id_jenis_survei
  * @property string $tanggal_mulai
  * @property string $tanggal_akhir
@@ -36,11 +37,12 @@ class SurveiDokumen extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_jenis_survei, tanggal_mulai, tanggal_akhir, banyak_dokumen, dokumen_bersih, dokumen_salah, id_pic, persentase_selesai', 'required'),
+			array('nama, id_jenis_survei, tanggal_mulai, tanggal_akhir, banyak_dokumen, dokumen_bersih, dokumen_salah, id_pic', 'required'),
 			array('id_jenis_survei, banyak_dokumen, dokumen_bersih, dokumen_salah, id_pic, persentase_selesai', 'numerical', 'integerOnly'=>true),
+			array('nama', 'length', 'max'=>200),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, id_jenis_survei, tanggal_mulai, tanggal_akhir, banyak_dokumen, dokumen_bersih, dokumen_salah, id_pic, persentase_selesai', 'safe', 'on'=>'search'),
+			array('id, nama, id_jenis_survei, tanggal_mulai, tanggal_akhir, banyak_dokumen, dokumen_bersih, dokumen_salah, id_pic, persentase_selesai', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -64,6 +66,7 @@ class SurveiDokumen extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
+			'nama' => 'Nama',
 			'id_jenis_survei' => 'Id Jenis Survei',
 			'tanggal_mulai' => 'Tanggal Mulai',
 			'tanggal_akhir' => 'Tanggal Akhir',
@@ -94,6 +97,7 @@ class SurveiDokumen extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
+		$criteria->compare('nama',$this->nama,true);
 		$criteria->compare('id_jenis_survei',$this->id_jenis_survei);
 		$criteria->compare('tanggal_mulai',$this->tanggal_mulai,true);
 		$criteria->compare('tanggal_akhir',$this->tanggal_akhir,true);

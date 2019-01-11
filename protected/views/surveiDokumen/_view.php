@@ -9,6 +9,10 @@
 	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('nama')); ?>:</b>
+	<?php echo CHtml::encode($data->nama); ?>
+	<br />
+
 	<b><?php echo CHtml::encode($data->getAttributeLabel('id_jenis_survei')); ?>:</b>
 	<?php echo CHtml::encode($data->id_jenis_survei); ?>
 	<br />
@@ -29,11 +33,11 @@
 	<?php echo CHtml::encode($data->dokumen_bersih); ?>
 	<br />
 
+	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('dokumen_salah')); ?>:</b>
 	<?php echo CHtml::encode($data->dokumen_salah); ?>
 	<br />
 
-	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('id_pic')); ?>:</b>
 	<?php echo CHtml::encode($data->id_pic); ?>
 	<br />
