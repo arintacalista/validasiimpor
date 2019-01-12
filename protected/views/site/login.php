@@ -1,8 +1,4 @@
-
-                <!-- header -->
-
-
-            <?php
+<?php
 /* @var $this SiteController */
 /* @var $model LoginForm */
 /* @var $form CActiveForm  */
@@ -12,9 +8,8 @@ $this->breadcrumbs=array(
 //	'Login',
 );
 ?>
- 
 
- <!-- <h1>Login</h1>
+<h1>Login</h1>
 
 <p>Silakan masukkan username dan password Anda, jika belum memiliki akses silakan hubungi Administrator </p>
 
@@ -26,7 +21,7 @@ $this->breadcrumbs=array(
 		'validateOnSubmit'=>true,
 	),
 )); ?>
- 
+
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'username'); ?>
@@ -54,6 +49,5 @@ $this->breadcrumbs=array(
 	</div>
 
 <?php $this->endWidget(); ?>
-</div><!-- form --> 
- 
-   
+</div>
+<!-- form -->
