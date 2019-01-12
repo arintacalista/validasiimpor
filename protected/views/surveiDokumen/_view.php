@@ -9,20 +9,16 @@
 	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('nama')); ?>:</b>
-	<?php echo CHtml::encode($data->nama); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('jenis_survei')); ?>:</b>
+	<?php echo CHtml::encode($data->idJenisSurvei->nama); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('id_jenis_survei')); ?>:</b>
-	<?php echo CHtml::encode($data->id_jenis_survei); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('kegiatan')); ?>:</b>
+	<?php echo CHtml::encode($data->idKegiatan->nama); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('tanggal_mulai')); ?>:</b>
-	<?php echo CHtml::encode($data->tanggal_mulai); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('tanggal_akhir')); ?>:</b>
-	<?php echo CHtml::encode($data->tanggal_akhir); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('pic')); ?>:</b>
+	<?php echo CHtml::encode($data->idPic->nama); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('banyak_dokumen')); ?>:</b>
@@ -33,15 +29,11 @@
 	<?php echo CHtml::encode($data->dokumen_bersih); ?>
 	<br />
 
-	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('dokumen_salah')); ?>:</b>
 	<?php echo CHtml::encode($data->dokumen_salah); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('id_pic')); ?>:</b>
-	<?php echo CHtml::encode($data->id_pic); ?>
-	<br />
-
+	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('persentase_selesai')); ?>:</b>
 	<?php echo CHtml::encode($data->persentase_selesai); ?>
 	<br />

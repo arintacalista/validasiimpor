@@ -22,14 +22,21 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
-		'nama',
-		'id_jenis_survei',
-		'tanggal_mulai',
-		'tanggal_akhir',
+		[
+            'label' => 'Jenis Survei',
+            'value' => $model->idJenisSurvei->nama,
+        ],
+		[
+            'label' => 'Kegiatan',
+            'value' => $model->idKegiatan->nama,
+        ],
+		[
+            'label' => 'Pic',
+            'value' => $model->idPic->nama,
+        ],
 		'banyak_dokumen',
 		'dokumen_bersih',
 		'dokumen_salah',
-		'id_pic',
 		'persentase_selesai',
 	),
 )); ?>

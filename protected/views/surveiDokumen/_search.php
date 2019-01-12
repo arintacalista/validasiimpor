@@ -17,23 +17,18 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'nama'); ?>
-		<?php echo $form->textField($model,'nama',array('size'=>60,'maxlength'=>200)); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model,'id_jenis_survei'); ?>
-		<?php echo $form->textField($model,'id_jenis_survei'); ?>
+        <?php echo $form->dropDownList($model,'id_jenis_survei', CHtml::listData(JenisSurvei::model()->orderByNama()->findAll(), 'id', 'nama'), ['empty' => '']); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'tanggal_mulai'); ?>
-		<?php echo $form->textField($model,'tanggal_mulai'); ?>
+		<?php echo $form->label($model,'id_kegiatan'); ?>
+		<?php echo $form->dropDownList($model,'id_kegiatan', CHtml::listData(Kegiatan::model()->orderByNama()->findAll(), 'id', 'nama'), ['empty' => '']); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'tanggal_akhir'); ?>
-		<?php echo $form->textField($model,'tanggal_akhir'); ?>
+		<?php echo $form->label($model,'id_pic'); ?>
+		<?php echo $form->dropDownList($model,'id_pic', CHtml::listData(Pic::model()->orderByNama()->findAll(), 'id', 'kode'), ['empty' => '']); ?>
 	</div>
 
 	<div class="row">
@@ -49,11 +44,6 @@
 	<div class="row">
 		<?php echo $form->label($model,'dokumen_salah'); ?>
 		<?php echo $form->textField($model,'dokumen_salah'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'id_pic'); ?>
-		<?php echo $form->textField($model,'id_pic'); ?>
 	</div>
 
 	<div class="row">

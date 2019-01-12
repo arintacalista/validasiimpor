@@ -59,8 +59,8 @@
                 ['label' => 'Jenis Survei', 'url' => ['/jenisSurvei']],
                 ['label' => 'Kegiatan', 'url' => ['/kegiatan']],
                 ['label' => 'Pic', 'url' => ['/pic']],
-				array('label'=>'Contact', 'url'=>array('/site/contact')),
-				/*array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),*/
+                ['label' => 'Survei Dokumen', 'url' => ['/surveiDokumen']],
+                /*array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),*/
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),
 		)); ?>

@@ -71,6 +71,9 @@ CREATE TABLE `survei_dokumen` (
   CONSTRAINT `survei_dokumen_ibfk_4` FOREIGN KEY (`id_pic`) REFERENCES `pic` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+INSERT INTO `survei_dokumen` (`id`, `id_jenis_survei`, `id_kegiatan`, `id_pic`, `banyak_dokumen`, `dokumen_bersih`, `dokumen_salah`, `persentase_selesai`) VALUES
+(1,	2,	1,	2,	0,	0,	0,	0),
+(2,	3,	2,	2,	0,	0,	0,	0);
 
 DROP TABLE IF EXISTS `survei_dokumen_detail`;
 CREATE TABLE `survei_dokumen_detail` (
@@ -100,4 +103,4 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `username`, `password`, `enkrip`) VALUES
 (1,	'admin',	'admin',	'admin');
 
--- 2019-01-12 10:28:59
+-- 2019-01-12 11:03:58

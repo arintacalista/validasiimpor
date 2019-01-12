@@ -95,4 +95,11 @@ class Kegiatan extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    public function scopes()
+    {
+        return [
+            'orderByNama' => ['order' => 'nama ASC'],
+        ];
+    }
 }

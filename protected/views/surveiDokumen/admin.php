@@ -46,15 +46,25 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'filter'=>$model,
 	'columns'=>array(
 		'id',
-		'nama',
-		'id_jenis_survei',
-		'tanggal_mulai',
-		'tanggal_akhir',
+		[
+            'filter' => CHtml::listData(JenisSurvei::model()->orderByNama()->findAll(), 'id', 'nama'),
+            'name' => 'id_jenis_survei',
+            'value' => '$data->idJenisSurvei->nama',
+        ],
+        [
+            'filter' => CHtml::listData(Kegiatan::model()->orderByNama()->findAll(), 'id', 'nama'),
+            'name' => 'id_kegiatan',
+            'value' => '$data->idKegiatan->nama',
+        ],
+		[
+            'filter' => CHtml::listData(Pic::model()->orderByNama()->findAll(), 'id', 'nama'),
+            'name' => 'id_pic',
+            'value' => '$data->idPic->nama',
+        ],
 		'banyak_dokumen',
-		/*
 		'dokumen_bersih',
+		/*
 		'dokumen_salah',
-		'id_pic',
 		'persentase_selesai',
 		*/
 		array(

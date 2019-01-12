@@ -5,18 +5,17 @@
  *
  * The followings are the available columns in table 'survei_dokumen':
  * @property integer $id
- * @property string $nama
  * @property integer $id_jenis_survei
- * @property string $tanggal_mulai
- * @property string $tanggal_akhir
+ * @property integer $id_kegiatan
+ * @property integer $id_pic
  * @property integer $banyak_dokumen
  * @property integer $dokumen_bersih
  * @property integer $dokumen_salah
- * @property integer $id_pic
  * @property integer $persentase_selesai
  *
  * The followings are the available model relations:
  * @property JenisSurvei $idJenisSurvei
+ * @property Kegiatan $idKegiatan
  * @property Pic $idPic
  */
 class SurveiDokumen extends CActiveRecord
@@ -37,12 +36,11 @@ class SurveiDokumen extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('nama, id_jenis_survei, tanggal_mulai, tanggal_akhir, banyak_dokumen, dokumen_bersih, dokumen_salah, id_pic', 'required'),
-			array('id_jenis_survei, banyak_dokumen, dokumen_bersih, dokumen_salah, id_pic, persentase_selesai', 'numerical', 'integerOnly'=>true),
-			array('nama', 'length', 'max'=>200),
+			array('id_jenis_survei, id_kegiatan, id_pic', 'required'),
+			array('id_jenis_survei, id_kegiatan, id_pic, banyak_dokumen, dokumen_bersih, dokumen_salah, persentase_selesai', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, nama, id_jenis_survei, tanggal_mulai, tanggal_akhir, banyak_dokumen, dokumen_bersih, dokumen_salah, id_pic, persentase_selesai', 'safe', 'on'=>'search'),
+			array('id, id_jenis_survei, id_kegiatan, id_pic, banyak_dokumen, dokumen_bersih, dokumen_salah, persentase_selesai', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -55,6 +53,7 @@ class SurveiDokumen extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'idJenisSurvei' => array(self::BELONGS_TO, 'JenisSurvei', 'id_jenis_survei'),
+			'idKegiatan' => array(self::BELONGS_TO, 'Kegiatan', 'id_kegiatan'),
 			'idPic' => array(self::BELONGS_TO, 'Pic', 'id_pic'),
 		);
 	}
@@ -66,14 +65,12 @@ class SurveiDokumen extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'nama' => 'Nama',
 			'id_jenis_survei' => 'Id Jenis Survei',
-			'tanggal_mulai' => 'Tanggal Mulai',
-			'tanggal_akhir' => 'Tanggal Akhir',
+			'id_kegiatan' => 'Id Kegiatan',
+			'id_pic' => 'Id Pic',
 			'banyak_dokumen' => 'Banyak Dokumen',
 			'dokumen_bersih' => 'Dokumen Bersih',
 			'dokumen_salah' => 'Dokumen Salah',
-			'id_pic' => 'Id Pic',
 			'persentase_selesai' => 'Persentase Selesai',
 		);
 	}
@@ -97,14 +94,12 @@ class SurveiDokumen extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('nama',$this->nama,true);
 		$criteria->compare('id_jenis_survei',$this->id_jenis_survei);
-		$criteria->compare('tanggal_mulai',$this->tanggal_mulai,true);
-		$criteria->compare('tanggal_akhir',$this->tanggal_akhir,true);
+		$criteria->compare('id_kegiatan',$this->id_kegiatan);
+		$criteria->compare('id_pic',$this->id_pic);
 		$criteria->compare('banyak_dokumen',$this->banyak_dokumen);
 		$criteria->compare('dokumen_bersih',$this->dokumen_bersih);
 		$criteria->compare('dokumen_salah',$this->dokumen_salah);
-		$criteria->compare('id_pic',$this->id_pic);
 		$criteria->compare('persentase_selesai',$this->persentase_selesai);
 
 		return new CActiveDataProvider($this, array(

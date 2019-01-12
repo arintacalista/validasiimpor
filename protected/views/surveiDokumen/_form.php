@@ -19,72 +19,22 @@
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'nama'); ?>
-		<?php echo $form->textField($model,'nama',array('size'=>60,'maxlength'=>200)); ?>
-		<?php echo $form->error($model,'nama'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'id_jenis_survei'); ?>
-		<?php echo $form->dropDownList($model,'id_jenis_survei', CHtml::listData(JenisSurvei::model()->findAll(), 'id', 'nama'), ['empty' => '']); ?>
+    <div class="row">
+		<?php echo $form->labelEx($model,'jenis_survei'); ?>
+		<?php echo $form->dropDownList($model,'id_jenis_survei', CHtml::listData(JenisSurvei::model()->orderByNama()->findAll(), 'id', 'nama'), ['empty' => '']); ?>
 		<?php echo $form->error($model,'id_jenis_survei'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'tanggal_mulai'); ?>
-		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-            'name' => 'SurveiDokumen[tanggal_mulai]',
-            'value' => $model->tanggal_mulai,
-            'options' => array(
-                'showAnim' => 'fold',
-                'dateFormat' => 'yy-mm-dd',
-            ),
-        )); ?>
-		<?php echo $form->error($model,'tanggal_mulai'); ?>
+		<?php echo $form->labelEx($model,'kegiatan'); ?>
+		<?php echo $form->dropDownList($model,'id_kegiatan', CHtml::listData(Kegiatan::model()->orderByNama()->findAll(), 'id', 'nama'), ['empty' => '']); ?>
+		<?php echo $form->error($model,'id_kegiatan'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'tanggal_akhir'); ?>
-		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-            'name' => 'SurveiDokumen[tanggal_akhir]',
-            'value' => $model->tanggal_akhir,
-            'options' => array(
-                'showAnim' => 'fold',
-                'dateFormat' => 'yy-mm-dd',
-            ),
-        )); ?>
-		<?php echo $form->error($model,'tanggal_akhir'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'banyak_dokumen'); ?>
-		<?php echo $form->textField($model,'banyak_dokumen'); ?>
-		<?php echo $form->error($model,'banyak_dokumen'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'dokumen_bersih'); ?>
-		<?php echo $form->textField($model,'dokumen_bersih'); ?>
-		<?php echo $form->error($model,'dokumen_bersih'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'dokumen_salah'); ?>
-		<?php echo $form->textField($model,'dokumen_salah'); ?>
-		<?php echo $form->error($model,'dokumen_salah'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'id_pic'); ?>
-		<?php echo $form->dropDownList($model,'id_pic', CHtml::listData(pic::model()->findAll(), 'id', 'kode'), ['empty' => '']); ?>
+    <div class="row">
+		<?php echo $form->labelEx($model,'pic'); ?>
+		<?php echo $form->dropDownList($model,'id_pic', CHtml::listData(Pic::model()->orderByNama()->findAll(), 'id', 'kode'), ['empty' => '']); ?>
 		<?php echo $form->error($model,'id_pic'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'persentase_selesai'); ?>
-		<?php echo $form->textField($model,'persentase_selesai'); ?>
-		<?php echo $form->error($model,'persentase_selesai'); ?>
 	</div>
 
 	<div class="row buttons">
