@@ -99,4 +99,16 @@ class User extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    public function check($value)
+    {
+        $passwordHash = $value;
+
+        if ($passwordHash == $this->password) {
+            return true;
+        }
+
+        return false;
+    }
+
 }
