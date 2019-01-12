@@ -56,9 +56,9 @@
 		'htmlOptions'=> array('class'=>'mytab'),
 			'items'=>array(
 				array('label'=>'Home', 'url'=>array('/site/home')),
-				array('label'=>'Monitoring', 'url'=>array('/validasi/validasi')),
-				array('label'=>'Atur Timeline', 'url'=>array('/upload/upload')),
-				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
+                ['label' => 'Jenis Survei', 'url' => ['/jenisSurvei']],
+                ['label' => 'Kegiatan', 'url' => ['/kegiatan']],
+                ['label' => 'Pic', 'url' => ['/pic']],
 				array('label'=>'Contact', 'url'=>array('/site/contact')),
 				/*array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),*/
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
