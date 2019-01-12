@@ -61,7 +61,7 @@ CREATE TABLE `survei_dokumen` (
   `banyak_dokumen` int(11) NOT NULL DEFAULT '0',
   `dokumen_bersih` int(11) NOT NULL DEFAULT '0',
   `dokumen_salah` int(11) NOT NULL DEFAULT '0',
-  `persentase_selesai` int(11) DEFAULT '0',
+  `persentase_selesai` decimal(20,2) DEFAULT '0.00',
   PRIMARY KEY (`id`),
   KEY `id_pic` (`id_pic`),
   KEY `id_jenis_survei` (`id_jenis_survei`),
@@ -72,24 +72,26 @@ CREATE TABLE `survei_dokumen` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `survei_dokumen` (`id`, `id_jenis_survei`, `id_kegiatan`, `id_pic`, `banyak_dokumen`, `dokumen_bersih`, `dokumen_salah`, `persentase_selesai`) VALUES
-(1,	2,	1,	2,	0,	0,	0,	0),
-(2,	3,	2,	2,	0,	0,	0,	0);
+(1,	2,	1,	2,	0,	0,	0,	0.00),
+(2,	3,	2,	2,	0,	0,	0,	0.00);
 
 DROP TABLE IF EXISTS `survei_dokumen_detail`;
 CREATE TABLE `survei_dokumen_detail` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_survei_dokumen` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
   `dokumen_bersih` int(11) NOT NULL,
   `dokumen_salah` int(11) NOT NULL,
-  `tanggal_dibuat` date NOT NULL,
+  `tanggal_dibuat` date DEFAULT NULL,
+  `disetujui` tinyint(4) DEFAULT '0',
+  `created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `id_survei_dokumen` (`id_survei_dokumen`)
+  KEY `id_survei_dokumen` (`id_survei_dokumen`),
+  KEY `id_user` (`id_user`),
+  CONSTRAINT `survei_dokumen_detail_ibfk_2` FOREIGN KEY (`id_survei_dokumen`) REFERENCES `survei_dokumen` (`id`),
+  CONSTRAINT `survei_dokumen_detail_ibfk_3` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `survei_dokumen_detail` (`id`, `id_survei_dokumen`, `dokumen_bersih`, `dokumen_salah`, `tanggal_dibuat`) VALUES
-(1,	1,	3,	2,	'2019-01-12'),
-(2,	1,	1,	0,	'2019-01-12'),
-(3,	1,	100,	50,	'2019-01-13');
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
@@ -103,4 +105,4 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `username`, `password`, `enkrip`) VALUES
 (1,	'admin',	'admin',	'admin');
 
--- 2019-01-12 11:03:58
+-- 2019-01-12 18:33:06

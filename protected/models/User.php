@@ -111,4 +111,10 @@ class User extends CActiveRecord
         return false;
     }
 
+    public function scopes()
+    {
+        return [
+            'orderByUsername' => ['order' => 'username ASC'],
+        ];
+    }
 }

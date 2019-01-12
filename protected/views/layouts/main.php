@@ -60,6 +60,8 @@
                 ['label' => 'Kegiatan', 'url' => ['/kegiatan']],
                 ['label' => 'Pic', 'url' => ['/pic']],
                 ['label' => 'Survei Dokumen', 'url' => ['/surveiDokumen']],
+                ['label' => 'Survei Dokumen Detail - Tambah', 'url' => ['/surveiDokumenDetail/add']],
+                ['label' => 'Survei Dokumen Detail - Belum Disetujui', 'url' => ['/surveiDokumenDetail/notYetApproved']],
                 /*array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),*/
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),

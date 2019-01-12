@@ -48,7 +48,7 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'persentase_selesai'); ?>
-		<?php echo $form->textField($model,'persentase_selesai'); ?>
+        <?php echo $form->textField($model,'persentase_selesai');$form->textField($model,'persentase_selesai',array('size'=>20,'maxlength'=>20)); ?>
 	</div>
 
 	<div class="row buttons">

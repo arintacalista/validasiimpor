@@ -1,32 +1,30 @@
 <?php
 
 /**
- * This is the model class for table "survei_dokumen".
+ * This is the model class for table "survei_dokumen_detail".
  *
- * The followings are the available columns in table 'survei_dokumen':
+ * The followings are the available columns in table 'survei_dokumen_detail':
  * @property integer $id
- * @property integer $id_jenis_survei
- * @property integer $id_kegiatan
- * @property integer $id_pic
- * @property integer $banyak_dokumen
+ * @property integer $id_survei_dokumen
+ * @property integer $id_user
  * @property integer $dokumen_bersih
  * @property integer $dokumen_salah
- * @property string $persentase_selesai
+ * @property string $tanggal_dibuat
+ * @property integer $disetujui
+ * @property string $created_at
  *
  * The followings are the available model relations:
- * @property JenisSurvei $idJenisSurvei
- * @property Kegiatan $idKegiatan
- * @property Pic $idPic
- * @property SurveiDokumenDetail[] $surveiDokumenDetails
+ * @property SurveiDokumen $idSurveiDokumen
+ * @property User $idUser
  */
-class SurveiDokumen extends CActiveRecord
+class SurveiDokumenDetail extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'survei_dokumen';
+		return 'survei_dokumen_detail';
 	}
 
 	/**
@@ -37,12 +35,12 @@ class SurveiDokumen extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_jenis_survei, id_kegiatan, id_pic', 'required'),
-			array('id_jenis_survei, id_kegiatan, id_pic, banyak_dokumen, dokumen_bersih, dokumen_salah', 'numerical', 'integerOnly'=>true),
-			array('persentase_selesai', 'length', 'max'=>20),
+			array('id_survei_dokumen, id_user, dokumen_bersih, dokumen_salah', 'required'),
+			array('id_survei_dokumen, id_user, dokumen_bersih, dokumen_salah, disetujui', 'numerical', 'integerOnly'=>true),
+			array('tanggal_dibuat, created_at', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, id_jenis_survei, id_kegiatan, id_pic, banyak_dokumen, dokumen_bersih, dokumen_salah, persentase_selesai', 'safe', 'on'=>'search'),
+			array('id, id_survei_dokumen, id_user, dokumen_bersih, dokumen_salah, tanggal_dibuat, disetujui, created_at', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -54,10 +52,8 @@ class SurveiDokumen extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'idJenisSurvei' => array(self::BELONGS_TO, 'JenisSurvei', 'id_jenis_survei'),
-			'idKegiatan' => array(self::BELONGS_TO, 'Kegiatan', 'id_kegiatan'),
-			'idPic' => array(self::BELONGS_TO, 'Pic', 'id_pic'),
-			'surveiDokumenDetails' => array(self::HAS_MANY, 'SurveiDokumenDetail', 'id_survei_dokumen'),
+			'idSurveiDokumen' => array(self::BELONGS_TO, 'SurveiDokumen', 'id_survei_dokumen'),
+			'idUser' => array(self::BELONGS_TO, 'User', 'id_user'),
 		);
 	}
 
@@ -68,13 +64,13 @@ class SurveiDokumen extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'id_jenis_survei' => 'Id Jenis Survei',
-			'id_kegiatan' => 'Id Kegiatan',
-			'id_pic' => 'Id Pic',
-			'banyak_dokumen' => 'Banyak Dokumen',
+			'id_survei_dokumen' => 'Id Survei Dokumen',
+			'id_user' => 'Id User',
 			'dokumen_bersih' => 'Dokumen Bersih',
 			'dokumen_salah' => 'Dokumen Salah',
-			'persentase_selesai' => 'Persentase Selesai',
+			'tanggal_dibuat' => 'Tanggal Dibuat',
+			'disetujui' => 'Disetujui',
+			'created_at' => 'Created At',
 		);
 	}
 
@@ -97,13 +93,13 @@ class SurveiDokumen extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('id_jenis_survei',$this->id_jenis_survei);
-		$criteria->compare('id_kegiatan',$this->id_kegiatan);
-		$criteria->compare('id_pic',$this->id_pic);
-		$criteria->compare('banyak_dokumen',$this->banyak_dokumen);
+		$criteria->compare('id_survei_dokumen',$this->id_survei_dokumen);
+		$criteria->compare('id_user',$this->id_user);
 		$criteria->compare('dokumen_bersih',$this->dokumen_bersih);
 		$criteria->compare('dokumen_salah',$this->dokumen_salah);
-		$criteria->compare('persentase_selesai',$this->persentase_selesai,true);
+		$criteria->compare('tanggal_dibuat',$this->tanggal_dibuat,true);
+		$criteria->compare('disetujui',$this->disetujui);
+		$criteria->compare('created_at',$this->created_at,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -114,15 +110,10 @@ class SurveiDokumen extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return SurveiDokumen the static model class
+	 * @return SurveiDokumenDetail the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
-
-    public function getJenisSurveiAndKegiatanAndPic()
-    {
-        return $this->idJenisSurvei->nama.' - '.$this->idKegiatan->nama.' - '.$this->idPic->nama;
-    }
 }
