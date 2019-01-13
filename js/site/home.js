@@ -16,8 +16,8 @@ today = today.getTime();
 // surveiDokumens = [
 //     {
 //         id: 0,
-//         jenis_survei_nama: 'A',
-//         nama: 'Nissan Leaf',
+//         jenis_survei: 'A',
+//         kegiatan: 'Nissan Leaf',
 //         tanggal_mulai: today - 1 * day,
 //         tanggal_akhir: today - 1 * day,
 //         banyak_dokumen: 1,
@@ -42,8 +42,8 @@ today = today.getTime();
 //     },
 //     {
 //         id: 0,
-//         jenis_survei_nama: 'B',
-//         nama: 'Jaguar E-type',
+//         jenis_survei: 'B',
+//         kegiatan: 'Jaguar E-type',
 //         tanggal_mulai: today - 1 * day,
 //         tanggal_akhir: today - 1 * day,
 //         banyak_dokumen: 2,
@@ -75,6 +75,7 @@ $.ajax({
     url: $('#container').attr('data-url'),
     success: function(response) {
         surveiDokumens = response.data;
+        // console.log(surveiDokumens);
     },
 });
 
@@ -90,7 +91,7 @@ series = surveiDokumens.map(function (surveiDokumen, i) {
     });
     return {
         id: surveiDokumen.deals[surveiDokumen.id],
-        nama: surveiDokumen.nama,
+        kegiatan: surveiDokumen.kegiatan,
         tanggal_mulai: surveiDokumen.tanggal_mulai,
         tanggal_akhir: surveiDokumen.tanggal_akhir,
         banyak_dokumen: surveiDokumen.banyak_dokumen,
@@ -119,10 +120,10 @@ Highcharts.ganttChart('container', {
             columns: [
                 {
                     title: {
-                        text: 'Nama'
+                        text: 'Kegiatan'
                     },
                     categories: map(series, function (s) {
-                        return s.nama;
+                        return s.kegiatan;
                     })
                 },
                 {

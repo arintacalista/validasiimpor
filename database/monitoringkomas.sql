@@ -72,7 +72,7 @@ CREATE TABLE `survei_dokumen` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `survei_dokumen` (`id`, `id_jenis_survei`, `id_kegiatan`, `id_pic`, `banyak_dokumen`, `dokumen_bersih`, `dokumen_salah`, `persentase_selesai`) VALUES
-(1,	2,	1,	2,	0,	0,	0,	0.00),
+(1,	2,	1,	2,	8,	5,	3,	62.50),
 (2,	3,	2,	2,	0,	0,	0,	0.00);
 
 DROP TABLE IF EXISTS `survei_dokumen_detail`;
@@ -92,6 +92,9 @@ CREATE TABLE `survei_dokumen_detail` (
   CONSTRAINT `survei_dokumen_detail_ibfk_3` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+INSERT INTO `survei_dokumen_detail` (`id`, `id_survei_dokumen`, `id_user`, `dokumen_bersih`, `dokumen_salah`, `tanggal_dibuat`, `disetujui`, `created_at`) VALUES
+(5,	1,	1,	5,	3,	'2019-01-12',	1,	NULL),
+(6,	1,	1,	10,	10,	'2019-01-13',	0,	NULL);
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
@@ -105,4 +108,4 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `username`, `password`, `enkrip`) VALUES
 (1,	'admin',	'admin',	'admin');
 
--- 2019-01-12 18:33:06
+-- 2019-01-13 08:04:04

@@ -125,4 +125,36 @@ class SurveiDokumen extends CActiveRecord
     {
         return $this->idJenisSurvei->nama.' - '.$this->idKegiatan->nama.' - '.$this->idPic->nama;
     }
+
+    public function getTanggalDibuatMax()
+    {
+        $tanggalDibuatMax = null;
+        $tanggalDibuats = [];
+
+        if ($surveiDokumenDetails = $this->surveiDokumenDetails) {
+            foreach ($surveiDokumenDetails as $surveiDokumenDetail) {
+                $tanggalDibuats[] = $surveiDokumenDetail->tanggal_dibuat;
+            }
+
+            $tanggalDibuatMax = max($tanggalDibuats);
+        }
+
+        return $tanggalDibuatMax;
+    }
+
+    public function getTanggalDibuatMin()
+    {
+        $tanggalDibuatMin = null;
+        $tanggalDibuats = [];
+
+        if ($surveiDokumenDetails = $this->surveiDokumenDetails) {
+            foreach ($surveiDokumenDetails as $surveiDokumenDetail) {
+                $tanggalDibuats[] = $surveiDokumenDetail->tanggal_dibuat;
+            }
+
+            $tanggalDibuatMin = min($tanggalDibuats);
+        }
+
+        return $tanggalDibuatMin;
+    }
 }

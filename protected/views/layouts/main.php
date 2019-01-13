@@ -55,7 +55,7 @@
 		<?php $this->widget('zii.widgets.CMenu',array(
 		'htmlOptions'=> array('class'=>'mytab'),
 			'items'=>array(
-				array('label'=>'Home', 'url'=>array('/site/home')),
+				['label' => 'Home - Bar', 'url' => ['/home/bar']],
                 ['label' => 'Jenis Survei', 'url' => ['/jenisSurvei']],
                 ['label' => 'Kegiatan', 'url' => ['/kegiatan']],
                 ['label' => 'Pic', 'url' => ['/pic']],
